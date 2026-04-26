@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# SSL certs
+certs/
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+
+# VS Code
+.vscode/
+
+# System
+Thumbs.db
+
+# Others
+.env
+.idea/
