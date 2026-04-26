@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCAS 2569 · Score Simulator</title>
+    <style>
+        :root {
+            --bg:         #f0f4f8;
+            --panel:      #ffffff;
+            --surface:    #f5f7fa;
+            --surface2:   #e8ecf2;
+            --border:     rgba(0,0,0,0.08);
+            --border2:    rgba(0,0,0,0.05);
+
+            --primary:    #2563eb;
+            --primary-bg: rgba(37,99,235,0.07);
+            --success:    #16a34a;
+            --success-bg: rgba(22,163,74,0.08);
+            --warning:    #d97706;
+            --warning-bg: rgba(217,119,6,0.08);
+            --danger:     #dc2626;
+            --danger-bg:  rgba(220,38,38,0.07);
+
+            --text:  #111827;
+            --dim:   #6b7280;
+            --muted: #9ca3af;
+            --r:     12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: #1d4ed8;
+            border-bottom: none;
+        }
+
+        .header-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+            flex: 0 0 auto;
+        }
+
+        .header-brand h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #fff;
+        }
+
+        .header-brand p {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.68);
+            margin-top: 2px;
+        }
+
+        .year-badge {
+            text-align: center;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .year-badge span {
+            display: block;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+        }
+
+        .year-badge strong {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ── LAYOUT ── */
+        .app-body {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 24px 28px 48px;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* ── SCORE PANEL ── */
+        .score-panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-head {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .panel-head-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--primary-bg);
+            border: 1px solid rgba(37,99,235,0.15);
+            display: grid;
+            place-items: center;
+            font-size: 0.85rem;
+            flex: 0 0 auto;
+        }
+
+        .panel-head h2 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .panel-head h2 em {
+            font-style: normal;
+            color: var(--dim);
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+
+        .panel-scroll {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .panel-scroll::-webkit-scrollbar { width: 4px; }
+        .panel-scroll::-webkit-scrollbar-track { background: transparent; }
+        .panel-scroll::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+        .score-group {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border2);
+        }
+
+        .group-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 38px;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 11px;
+        }
+
+        .score-row:last-child { margin-bottom: 0; }
+
+        .score-lbl {
+            font-size: 0.8rem;
+            color: var(--dim);
+            white-space: nowrap;
+        }
+
+        /* Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(37,99,235,0.35);
+            transition: transform 0.12s;
+        }
+
+        input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.2); }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid #fff;
+            cursor: pointer;
+        }
+
+        .score-val {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Composite */
+        .composite-block {
+            padding: 14px 18px 18px;
+            flex: 0 0 auto;
+        }
+
+        .composite-card {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .composite-lbl {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .composite-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .composite-hint {
+            font-size: 0.74rem;
+            color: var(--muted);
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+
+        /* ── RESULTS PANEL ── */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Search */
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            height: 50px;
+            padding: 0 18px 0 46px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            color: var(--text);
+            font: inherit;
+            font-size: 0.93rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-wrap input::placeholder { color: var(--muted); }
+
+        .search-wrap input:focus {
+            border-color: rgba(37,99,235,0.35);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+        }
+
+        .search-ico {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat-box {
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: border-color 0.15s, transform 0.1s;
+        }
+
+        .stat-box:hover { transform: translateY(-1px); }
+
+        .stat-box.pass  { border-color: rgba(22,163,74,0.2); }
+        .stat-box.border-card { border-color: rgba(217,119,6,0.2); }
+        .stat-box.fail  { border-color: rgba(220,38,38,0.2); }
+
+        .stat-num {
+            font-size: 1.7rem;
+            font-weight: 800;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-box.pass  .stat-num { color: var(--success); }
+        .stat-box.border-card .stat-num { color: var(--warning); }
+        .stat-box.fail  .stat-num { color: var(--danger); }
+
+        .stat-lbl {
+            font-size: 0.74rem;
+            margin-top: 4px;
+        }
+
+        .stat-box.pass  .stat-lbl { color: rgba(22,163,74,0.75); }
+        .stat-box.border-card .stat-lbl { color: rgba(217,119,6,0.75); }
+        .stat-box.fail  .stat-lbl { color: rgba(220,38,38,0.75); }
+
+        /* Filter chips */
+        .filter-row {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            min-height: 34px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--dim);
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .chip:hover { border-color: var(--primary); color: var(--primary); }
+
+        .chip.on-all      { background: var(--primary-bg); border-color: rgba(37,99,235,0.25);  color: var(--primary); }
+        .chip.on-pass     { background: var(--success-bg); border-color: rgba(22,163,74,0.25);  color: var(--success); }
+        .chip.on-border   { background: var(--warning-bg); border-color: rgba(217,119,6,0.25);  color: var(--warning); }
+        .chip.on-fail     { background: var(--danger-bg);  border-color: rgba(220,38,38,0.25);  color: var(--danger); }
+
+        /* Program cards */
+        .prog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .prog-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--muted);
+            border-radius: var(--r);
+            padding: 16px 18px;
+            transition: border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+        }
+
+        .prog-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .prog-card.pass     { border-left-color: var(--success); }
+        .prog-card.borderline { border-left-color: var(--warning); }
+        .prog-card.fail     { border-left-color: var(--danger); }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .univ-lbl {
+            font-size: 0.74rem;
+            color: var(--dim);
+            margin-bottom: 3px;
+        }
+
+        .prog-name {
+            font-size: 0.97rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .faculty-lbl {
+            font-size: 0.77rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .status-pill {
+            flex: 0 0 auto;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-pill.pass     { background: var(--success-bg); color: var(--success); border: 1px solid rgba(22,163,74,0.2); }
+        .status-pill.borderline { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(217,119,6,0.2); }
+        .status-pill.fail     { background: var(--danger-bg);  color: var(--danger);  border: 1px solid rgba(220,38,38,0.2); }
+
+        /* Bar */
+        .bar-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .bar-meta span { font-size: 0.74rem; color: var(--muted); }
+        .bar-meta strong { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--dim); }
+
+        .bar-track {
+            height: 7px;
+            border-radius: 3.5px;
+            background: var(--surface2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 3.5px;
+            transition: width 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+        }
+
+        .bar-fill.pass     { background: #4ade80; }
+        .bar-fill.borderline { background: #e8b84b; }
+        .bar-fill.fail     { background: #f16b6b; }
+
+        .bar-marker {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: rgba(0,0,0,0.3);
+            z-index: 2;
+            border-radius: 1px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 7px;
+        }
+
+        .gap-lbl { font-size: 0.76rem; }
+        .gap-lbl.pass     { color: var(--success); }
+        .gap-lbl.borderline { color: var(--warning); }
+        .gap-lbl.fail     { color: var(--danger); }
+
+        .seats-lbl { font-size: 0.72rem; color: var(--muted); }
+        .seats-lbl strong { color: var(--dim); }
+
+        /* Empty */
+        .empty {
+            padding: 56px 20px;
+            text-align: center;
+        }
+
+        .empty-icon { font-size: 2.8rem; opacity: 0.3; margin-bottom: 10px; }
+        .empty p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+        /* Notice */
+        .notice {
+            padding: 14px 18px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--muted);
+            border-radius: var(--r);
+            font-size: 0.8rem;
+            color: var(--dim);
+            line-height: 1.7;
+        }
+
+        .notice strong { color: var(--dim); }
+
+        /* Footer */
+        .site-footer {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 28px 32px;
+            font-size: 0.74rem;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.06em;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .app-body { grid-template-columns: 1fr; padding: 16px; }
+            .score-panel { position: static; max-height: none; }
+        }
+
+        @media (max-width: 600px) {
+            .header-inner { flex-wrap: wrap; padding: 14px 16px; }
+            .stats-row { grid-template-columns: repeat(3,1fr); }
+            .app-body { padding: 12px; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="header-brand">
+            <div class="header-icon">🎓</div>
+            <div>
+                <h1>TCAS 2569 SCORE SIMULATOR</h1>
+                <p>ระบบคำนวณและเทียบคะแนนเข้ามหาวิทยาลัย ปีการศึกษา 2569</p>
+            </div>
+        </div>
+        <div class="year-badge">
+            <span>Academic Year</span>
+            <strong>2569 / 2570</strong>
+        </div>
+    </div>
+</header>
+
+<div class="app-body">
+
+    <!-- ─── LEFT: SCORE INPUT ─── -->
+    <div class="score-panel">
+        <div class="panel-head">
+            <div class="panel-head-icon">💯</div>
+            <h2>คะแนนของคุณ <em>(0–100)</em></h2>
+        </div>
+        <div class="panel-scroll">
+            <div class="score-group" id="grp-tgat">
+                <div class="group-label">TGAT / TPAT</div>
+            </div>
+            <div class="score-group" id="grp-alevel">
+                <div class="group-label">A-LEVEL</div>
+            </div>
+        </div>
+        <div class="composite-block">
+            <div class="composite-card">
+                <div class="composite-lbl">คะแนน Composite เฉลี่ย</div>
+                <div class="composite-num" id="composite-num">—</div>
+                <div class="composite-hint">ค่าเฉลี่ยถ่วงน้ำหนักตามสูตรของแต่ละสาขา<br>ใส่คะแนนเพื่อเริ่มเปรียบเทียบ</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── RIGHT: RESULTS ─── -->
+    <div class="results-panel">
+
+        <div class="search-wrap">
+            <span class="search-ico">🔍</span>
+            <input id="search" type="text" placeholder="ค้นหาคณะ / มหาวิทยาลัย เช่น 'วิศวะ จุฬา', 'แพทย์ มหิดล', 'บัญชี ธรรมศาสตร์'...">
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box pass" data-filter="pass">
+                <div class="stat-num" id="cnt-pass">0</div>
+                <div class="stat-lbl">ผ่านเกณฑ์</div>
+            </div>
+            <div class="stat-box border-card" data-filter="borderline">
+                <div class="stat-num" id="cnt-border">0</div>
+                <div class="stat-lbl">ใกล้เกณฑ์ (≤5 คะแนน)</div>
+            </div>
+            <div class="stat-box fail" data-filter="fail">
+                <div class="stat-num" id="cnt-fail">0</div>
+                <div class="stat-lbl">ต้องพัฒนาเพิ่ม</div>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <button class="chip on-all" data-f="all">ทั้งหมด</button>
+            <button class="chip" data-f="pass">✅ ผ่านเกณฑ์</button>
+            <button class="chip" data-f="borderline">⚡ ใกล้เคียง</button>
+            <button class="chip" data-f="fail">❌ ต้องพัฒนา</button>
+        </div>
+
+        <div class="prog-list" id="prog-list"></div>
+
+        <div class="notice">
+            <strong>หมายเหตุ</strong> — คะแนน "เกณฑ์ขั้นต่ำ" ในระบบนี้อ้างอิงจากสถิติปี 2568 (ปีก่อนหน้า) เพื่อประเมินความเป็นไปได้เบื้องต้นเท่านั้น
+            โปรดตรวจสอบประกาศอย่างเป็นทางการที่ <strong>mytcas.com</strong> และคุณสมบัติเฉพาะสาขาก่อนตัดสินใจสมัคร
+        </div>
+
+    </div>
+</div>
+
+<footer class="site-footer">
+    UNIVERSITY ADMISSION CALCULATOR © 2026–2027 · TCAS 69 UPDATED · ข้อมูลเพื่อการศึกษาเท่านั้น
+</footer>
+
+<script>
+const FIELDS = [
+    { id:"tgat",  lbl:"TGAT",    grp:"tgat"   },
+    { id:"tpat1", lbl:"TPAT 1",  grp:"tgat"   },
+    { id:"tpat3", lbl:"TPAT 3",  grp:"tgat"   },
+    { id:"math1", lbl:"Math 1",  grp:"alevel" },
+    { id:"phy",   lbl:"Physics", grp:"alevel" },
+    { id:"chem",  lbl:"Chem",    grp:"alevel" },
+    { id:"bio",   lbl:"Bio",     grp:"alevel" },
+    { id:"eng",   lbl:"English", grp:"alevel" },
+    { id:"thai",  lbl:"Thai",    grp:"alevel" },
+    { id:"soc",   lbl:"Social",  grp:"alevel" },
+    { id:"sci",   lbl:"Sci",     grp:"alevel" },
+];
+
+const PROGRAMS = [
+    // ── บูรพาพิทักษ์ ──
+    { univ:"มหาวิทยาลัยบูรพาพิทักษ์",   short:"บูรพาพิทักษ์",   faculty:"คณะอักษรศาสตร์",             prog:"ภาษาไทย",       seats:100, cut:58, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยบูรพาพิทักษ์",   short:"บูรพาพิทักษ์",   faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:120, cut:78, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    // ── ศรีศิลปศาสตร์ ──
+    { univ:"มหาวิทยาลัยศรีศิลปศาสตร์",  short:"ศรีศิลปศาสตร์",  faculty:"คณะศิลปกรรมและการออกแบบ",       prog:"ดิจิทัลมีเดียอาร์ต",        seats:80,  cut:62, f:{tgat:.40,math1:.20,eng:.40} },
+    { univ:"มหาวิทยาลัยศรีศิลปศาสตร์",  short:"ศรีศิลปศาสตร์",  faculty:"คณะนิเทศศาสตร์และสื่อสร้างสรรค์", prog:"คณะจิตรกรรม",    seats:98,  cut:98, f:{tgat:.98,thai:.98,eng:.98} },
+    // ── จุฬาพิทักษ์ (กรุงเทพฯ) ──
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:314, cut:90, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:110, cut:84, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะพาณิชยศาสตร์และการบัญชี",   prog:"การบัญชี",                  seats:140, cut:78, f:{tgat:.40,math1:.30,eng:.30} },
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะนิติศาสตร์",                 prog:"นิติศาสตร์",                seats:200, cut:77, f:{tgat:.50,thai:.30,eng:.20} },
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะอักษรศาสตร์",                prog:"ภาษาอังกฤษ",                seats:60,  cut:76, f:{tgat:.40,thai:.30,eng:.30} },
+    { univ:"มหาวิทยาลัยจุฬาพิทักษ์",  short:"จุฬาพิทักษ์",  faculty:"คณะสถาปัตยกรรมศาสตร์",          prog:"สถาปัตยกรรม",               seats:80,  cut:74, f:{tgat:.40,math1:.30,eng:.30} },
+    // ── มหิสร (กรุงเทพฯ) ──
+    { univ:"มหาวิทยาลัยมหิสร",         short:"มหิสร",         faculty:"คณะแพทยศาสตร์วิชิรพยาบาล",      prog:"แพทยศาสตร์",               seats:280, cut:89, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยมหิสร",         short:"มหิสร",         faculty:"คณะทันตแพทยศาสตร์",             prog:"ทันตแพทยศาสตร์",            seats:100, cut:83, f:{tgat:.20,chem:.25,bio:.30,math1:.15,eng:.10} },
+    { univ:"มหาวิทยาลัยมหิสร",         short:"มหิสร",         faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมชีวการแพทย์",       seats:60,  cut:78, f:{tgat:.25,math1:.35,phy:.25,chem:.15} },
+    { univ:"มหาวิทยาลัยมหิสร",         short:"มหิสร",         faculty:"คณะเทคโนโลยีสารสนเทศ",          prog:"วิทยาการข้อมูล",            seats:80,  cut:72, f:{tgat:.30,math1:.50,eng:.20} },
+    // ── ธรรมนคร (กรุงเทพฯ) ──
+    { univ:"มหาวิทยาลัยธรรมนคร",       short:"ธรรมนคร",       faculty:"คณะนิติศาสตร์",                 prog:"นิติศาสตร์",                seats:300, cut:75, f:{tgat:.50,thai:.30,eng:.20} },
+    { univ:"มหาวิทยาลัยธรรมนคร",       short:"ธรรมนคร",       faculty:"คณะพาณิชยศาสตร์และการบัญชี",   prog:"การบัญชี",                  seats:180, cut:74, f:{tgat:.40,math1:.30,eng:.30} },
+    { univ:"มหาวิทยาลัยธรรมนคร",       short:"ธรรมนคร",       faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:120, cut:79, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยธรรมนคร",       short:"ธรรมนคร",       faculty:"คณะเศรษฐศาสตร์",                prog:"เศรษฐศาสตร์",               seats:200, cut:72, f:{tgat:.40,math1:.30,eng:.30} },
+    // ── เกษตรพิทักษ์ (กรุงเทพฯ) ──
+    { univ:"มหาวิทยาลัยเกษตรพิทักษ์",  short:"เกษตรพิทักษ์",  faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:120, cut:70, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยเกษตรพิทักษ์",  short:"เกษตรพิทักษ์",  faculty:"คณะวิทยาศาสตร์",                prog:"วิทยาการคอมพิวเตอร์",       seats:80,  cut:67, f:{tgat:.35,math1:.45,eng:.20} },
+    { univ:"มหาวิทยาลัยเกษตรพิทักษ์",  short:"ศรีศิลปศาสตร์",  faculty:"คณะอักษรศาสตร์",               prog:"ภาควิชาภาษาอังกฤษ",                 seats:97, cut:97, f:{tgat:.97,math1:.97,eng:.97} },
+    // ── สทพ. (กรุงเทพฯ) ──
+    { univ:"สถาบันเทคโนโลยีพระนครหลวง", short:"สทพ.",          faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:97, cut:72, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"สถาบันเทคโนโลยีพระนครหลวง", short:"สทพ.",          faculty:"คณะเทคโนโลยีสารสนเทศ",          prog:"วิทยาการคอมพิวเตอร์",       seats:120, cut:69, f:{tgat:.30,math1:.45,eng:.25} },
+    { univ:"สถาบันเทคโนโลยีพระนครหลวง", short:"สทพ.",          faculty:"คณะสถาปัตยกรรมศาสตร์",          prog:"สถาปัตยกรรม",               seats:100, cut:68, f:{tgat:.40,math1:.30,eng:.30} },
+    // ── เทคโนธนนคร (กรุงเทพฯ) ──
+    { univ:"มหาวิทยาลัยเทคโนธนนคร",    short:"เทคโนธนนคร",    faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมซอฟต์แวร์",        seats:100, cut:71, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยเทคโนธนนคร",    short:"เทคโนธนนคร",    faculty:"คณะวิทยาศาสตร์",                prog:"คณิตศาสตร์ประยุกต์",        seats:80,  cut:65, f:{tgat:.30,math1:.50,sci:.20} },
+    // ── ล้านนา (เชียงใหม่) ──
+    { univ:"มหาวิทยาลัยล้านนา",         short:"ม.ล้านนา",      faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:200, cut:85, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยล้านนา",         short:"ม.ล้านนา",      faculty:"คณะทันตแพทยศาสตร์",             prog:"ทันตแพทยศาสตร์",            seats:80,  cut:80, f:{tgat:.20,chem:.25,bio:.30,math1:.15,eng:.10} },
+    { univ:"มหาวิทยาลัยล้านนา",         short:"ม.ล้านนา",      faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:120, cut:68, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยล้านนา",         short:"ม.ล้านนา",      faculty:"คณะบริหารธุรกิจ",               prog:"การตลาด",                   seats:160, cut:62, f:{tgat:.50,math1:.20,eng:.30} },
+    // ── อีสานนคร (ขอนแก่น) ──
+    { univ:"มหาวิทยาลัยอีสานนคร",       short:"ม.อีสานนคร",    faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:240, cut:83, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยอีสานนคร",       short:"ม.อีสานนคร",    faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:130, cut:65, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยอีสานนคร",       short:"ม.อีสานนคร",    faculty:"คณะนิติศาสตร์",                 prog:"นิติศาสตร์",                seats:200, cut:63, f:{tgat:.50,thai:.30,eng:.20} },
+    // ── ปักษ์ใต้ (สงขลา) ──
+    { univ:"มหาวิทยาลัยปักษ์ใต้",       short:"ม.ปักษ์ใต้",    faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:200, cut:82, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยปักษ์ใต้",       short:"ม.ปักษ์ใต้",    faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:100, cut:63, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยปักษ์ใต้",       short:"ม.ปักษ์ใต้",    faculty:"คณะวิทยาศาสตร์",                prog:"วิทยาการข้อมูลและ AI",       seats:60,  cut:65, f:{tgat:.30,math1:.50,eng:.20} },
+    // ── ศิลปนคร / ตะวันออก / เหนือนคร ──
+    { univ:"มหาวิทยาลัยศิลปนคร",        short:"ศิลปนคร",       faculty:"คณะสถาปัตยกรรมศาสตร์",          prog:"สถาปัตยกรรม",               seats:120, cut:66, f:{tgat:.40,math1:.30,eng:.30} },
+    { univ:"มหาวิทยาลัยตะวันออก",       short:"ม.ตะวันออก",    faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:120, cut:78, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยตะวันออก",       short:"ม.ตะวันออก",    faculty:"คณะครุศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:100, cut:58, f:{tgat:.30,math1:.40,phy:.30} },
+    { univ:"มหาวิทยาลัยเหนือนคร",       short:"ม.เหนือนคร",    faculty:"คณะแพทยศาสตร์",                 prog:"แพทยศาสตร์",               seats:160, cut:80, f:{tgat:.20,math1:.10,phy:.15,chem:.20,bio:.25,eng:.10} },
+    { univ:"มหาวิทยาลัยเหนือนคร",       short:"ม.เหนือนคร",    faculty:"คณะวิศวกรรมศาสตร์",             prog:"วิศวกรรมคอมพิวเตอร์",       seats:120, cut:60, f:{tgat:.30,math1:.40,phy:.30} },
+];
+
+// ── STATE ──
+const scores = {};
+FIELDS.forEach(f => scores[f.id] = 0);
+let activeFilter = "all";
+let query = "";
+
+// ── BUILD SLIDERS ──
+function setSliderFill(el) {
+    const pct = parseFloat(el.value);
+    el.style.background = `linear-gradient(to right, #2563eb 0%, #2563eb ${pct}%, #e2e8f0 ${pct}%, #e2e8f0 100%)`;
+}
+
+FIELDS.forEach(f => {
+    const grp = document.getElementById(`grp-${f.grp}`);
+    const row = document.createElement("div");
+    row.className = "score-row";
+    row.innerHTML = `
+        <span class="score-lbl">${f.lbl}</span>
+        <input type="range" min="0" max="100" step="1" value="0" id="sl-${f.id}">
+        <span class="score-val" id="v-${f.id}">0</span>
+    `;
+    grp.appendChild(row);
+
+    const sl = row.querySelector("input");
+    setSliderFill(sl);
+
+    sl.addEventListener("input", () => {
+        const v = parseFloat(sl.value);
+        scores[f.id] = v;
+        document.getElementById(`v-${f.id}`).textContent = v;
+        setSliderFill(sl);
+        refresh();
+    });
+});
+
+// ── CALC ──
+function composite(formula) {
+    let tot = 0, ws = 0;
+    for (const [k, w] of Object.entries(formula)) {
+        tot += (scores[k] || 0) * w;
+        ws  += w;
+    }
+    return ws > 0 ? tot / ws : 0;
+}
+
+function status(gap) {
+    return gap >= 0 ? "pass" : gap >= -5 ? "borderline" : "fail";
+}
+
+// ── RENDER ──
+const STATUS_LABEL = { pass:"✅ ผ่านเกณฑ์", borderline:"⚡ ใกล้เคียง", fail:"❌ ไม่ผ่าน" };
+
+function render(list) {
+    const el = document.getElementById("prog-list");
+    if (!list.length) {
+        el.innerHTML = `<div class="empty"><div class="empty-icon">🔎</div><p>ไม่พบสาขาที่ตรงกับเงื่อนไข<br>ลองเปลี่ยนคำค้นหาหรือตัวกรอง</p></div>`;
+        return;
+    }
+    el.innerHTML = list.map(p => {
+        const c   = composite(p.f);
+        const gap = c - p.cut;
+        const st  = status(gap);
+        const bar = Math.min(100, c).toFixed(1);
+        const gapTxt = gap >= 0
+            ? `สูงกว่าเกณฑ์ ${gap.toFixed(1)} คะแนน`
+            : `ขาดอีก ${Math.abs(gap).toFixed(1)} คะแนน`;
+        return `
+        <div class="prog-card ${st}">
+            <div class="card-top">
+                <div>
+                    <div class="univ-lbl">${p.short}</div>
+                    <div class="prog-name">${p.prog}</div>
+                    <div class="faculty-lbl">${p.faculty}</div>
+                </div>
+                <span class="status-pill ${st}">${STATUS_LABEL[st]}</span>
+            </div>
+            <div class="bar-meta">
+                <span>คะแนน composite</span>
+                <strong>${c.toFixed(1)} / เกณฑ์ ${p.cut}</strong>
+            </div>
+            <div class="bar-track">
+                <div class="bar-fill ${st}" style="width:${bar}%"></div>
+                <div class="bar-marker" style="left:${p.cut}%"></div>
+            </div>
+            <div class="card-footer">
+                <span class="gap-lbl ${st}">${gapTxt}</span>
+                <span class="seats-lbl">รับ <strong>${p.seats}</strong> คน</span>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+function refresh() {
+    const all = PROGRAMS.map(p => {
+        const c   = composite(p.f);
+        const gap = c - p.cut;
+        return { ...p, c, gap, st: status(gap) };
+    });
+
+    document.getElementById("cnt-pass").textContent   = all.filter(p => p.st === "pass").length;
+    document.getElementById("cnt-border").textContent  = all.filter(p => p.st === "borderline").length;
+    document.getElementById("cnt-fail").textContent    = all.filter(p => p.st === "fail").length;
+
+    const anyScore = Object.values(scores).some(v => v > 0);
+    document.getElementById("composite-num").textContent = anyScore
+        ? (Object.values(scores).filter(v=>v>0).reduce((a,b)=>a+b,0) / Object.values(scores).filter(v=>v>0).length).toFixed(1)
+        : "—";
+
+    const q = query.toLowerCase();
+    const shown = all
+        .filter(p => {
+            const matchQ = !q || [p.univ, p.short, p.faculty, p.prog].some(s => s.toLowerCase().includes(q));
+            const matchF = activeFilter === "all" || p.st === activeFilter;
+            return matchQ && matchF;
+        })
+        .sort((a, b) => b.gap - a.gap);
+
+    render(shown);
+}
+
+// ── EVENTS ──
+document.getElementById("search").addEventListener("input", e => {
+    query = e.target.value;
+    refresh();
+});
+
+document.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.f;
+        document.querySelectorAll(".chip").forEach(b => b.className = "chip");
+        const cls = { all:"chip on-all", pass:"chip on-pass", borderline:"chip on-border", fail:"chip on-fail" };
+        btn.className = cls[activeFilter];
+        refresh();
+    });
+});
+
+document.querySelectorAll(".stat-box").forEach(box => {
+    box.addEventListener("click", () => {
+        const f = box.dataset.filter;
+        activeFilter = activeFilter === f ? "all" : f;
+        document.querySelectorAll(".chip").forEach(b => b.className = "chip");
+        const cls = { all:"chip on-all", pass:"chip on-pass", borderline:"chip on-border", fail:"chip on-fail" };
+        document.querySelector(`[data-f="${activeFilter}"]`).className = cls[activeFilter];
+        refresh();
+    });
+});
+
+refresh();
+</script>
+</body>
+</html>

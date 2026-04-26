@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รับสมัครนักศึกษาใหม่ | มหาวิทยาลัยศรีศิลปศาสตร์</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
+    <style>
+        :root {
+            --sage: #2e5c42;
+            --sage-dark: #1c3d2b;
+            --sage-soft: #3d7556;
+            --clay: #c97b4b;
+            --clay-light: #f0d4bb;
+            --ivory: #faf8f3;
+            --stone: #f0ebe0;
+            --ink: #1e2d24;
+            --dim: #607060;
+            --line: rgba(46, 92, 66, 0.14);
+            --card: #ffffff;
+            --glow: 0 8px 40px rgba(46, 92, 66, 0.13);
+            --r: 20px;
+            --w: 1160px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            color: var(--ink);
+            background: var(--ivory);
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        .wrap {
+            width: min(var(--w), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /* ─── HEADER ─── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: stretch;
+            min-height: 72px;
+            border-bottom: 1px solid var(--line);
+            box-shadow: 0 2px 16px rgba(28, 61, 43, 0.1);
+        }
+
+        .header-brand {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 0 28px;
+            background: var(--sage-dark);
+            text-decoration: none;
+        }
+
+        .header-brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            flex: 0 0 auto;
+        }
+
+        .brand-info strong {
+            display: block;
+            font-size: 0.97rem;
+            color: #fff;
+            line-height: 1.25;
+        }
+
+        .brand-info span {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.58);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .header-nav-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            background: rgba(250, 248, 243, 0.97);
+            backdrop-filter: blur(10px);
+            gap: 24px;
+        }
+
+        .header-tagline {
+            font-size: 0.82rem;
+            color: var(--dim);
+            border-left: 2px solid var(--clay);
+            padding-left: 12px;
+            line-height: 1.45;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .site-nav a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 36px;
+            padding: 0 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--dim);
+            transition: background 0.18s, color 0.18s;
+        }
+
+        .site-nav a:hover {
+            background: rgba(46, 92, 66, 0.08);
+            color: var(--sage);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 16px;
+            border-radius: 8px;
+            background: var(--clay);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-left: 6px;
+        }
+
+        .btn-nav:hover {
+            background: #b86a3a;
+            color: #fff;
+        }
+
+        @media (max-width: 980px) {
+            .site-header {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .header-brand {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .header-nav-area {
+                width: 100%;
+                padding: 10px 20px 12px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header-tagline { display: none; }
+
+            .site-nav { flex-wrap: wrap; }
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            padding: 52px 0 0;
+            overflow: hidden;
+        }
+
+        .hero-center {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 36px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: rgba(46, 92, 66, 0.1);
+            border: 1px solid rgba(46, 92, 66, 0.18);
+            color: var(--sage);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--clay);
+        }
+
+        .hero h1 {
+            margin: 20px auto 16px;
+            max-width: 780px;
+            font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+            line-height: 1.06;
+            color: var(--sage-dark);
+        }
+
+        .hero-sub {
+            margin: 0 auto 32px;
+            max-width: 600px;
+            font-size: 1.06rem;
+            line-height: 1.85;
+            color: var(--dim);
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .btn-hero-primary,
+        .btn-hero-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .btn-hero-primary {
+            padding: 0 28px;
+            background: var(--sage);
+            color: #fff;
+            box-shadow: 0 16px 32px rgba(46, 92, 66, 0.22);
+        }
+
+        .btn-hero-ghost {
+            padding: 0 24px;
+            background: transparent;
+            color: var(--sage);
+            border: 1.5px solid var(--sage);
+        }
+
+        /* ─── STATS BAND ─── */
+        .stats-band {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            background: var(--sage-dark);
+            border-radius: 28px 28px 0 0;
+        }
+
+        .stat-cell {
+            padding: 28px 24px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-cell:last-child { border-right: 0; }
+
+        .stat-cell strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--clay-light);
+            margin-bottom: 6px;
+        }
+
+        .stat-cell span {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.68);
+            line-height: 1.5;
+        }
+
+        /* ─── STEPS ─── */
+        .steps-section {
+            background: var(--stone);
+            padding: 36px 0;
+        }
+
+        .steps-title {
+            text-align: center;
+            margin: 0 0 28px;
+            font-size: 1.15rem;
+            color: var(--sage-dark);
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0;
+            position: relative;
+        }
+
+        .steps-row::before {
+            content: "";
+            position: absolute;
+            top: 28px;
+            left: calc(100% / 6);
+            right: calc(100% / 6);
+            height: 2px;
+            background: linear-gradient(90deg, var(--sage) 0%, var(--clay) 100%);
+            z-index: 0;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-num {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 14px;
+            border: 3px solid var(--stone);
+        }
+
+        .step-item:nth-child(1) .step-num { background: var(--sage); }
+        .step-item:nth-child(2) .step-num { background: var(--sage-soft); }
+        .step-item:nth-child(3) .step-num { background: var(--clay); }
+
+        .step-item strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+
+        .step-item p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--dim);
+            line-height: 1.6;
+        }
+
+        /* ─── MAIN ─── */
+        .main-section {
+            padding: 40px 0 60px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* ─── SIDEBAR (LEFT) ─── */
+        .sidebar {
+            display: grid;
+            gap: 20px;
+        }
+
+        .info-card {
+            border-radius: var(--r);
+            border: 1px solid var(--line);
+            background: var(--card);
+            box-shadow: var(--glow);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 20px 14px;
+            border-bottom: 1px solid var(--line);
+            background: linear-gradient(135deg, rgba(46, 92, 66, 0.06), rgba(201, 123, 75, 0.04));
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--sage-dark);
+        }
+
+        .card-body {
+            padding: 16px 20px 20px;
+        }
+
+        .date-list {
+            display: grid;
+        }
+
+        .date-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+            gap: 12px;
+        }
+
+        .date-row:last-child { border-bottom: 0; }
+
+        .date-row span { font-size: 0.9rem; color: var(--dim); }
+
+        .date-row strong {
+            font-size: 0.88rem;
+            color: var(--sage);
+            text-align: right;
+        }
+
+        .doc-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--stone);
+        }
+
+        .doc-dot {
+            flex: 0 0 auto;
+            margin-top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--clay);
+        }
+
+        .doc-item strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+            color: var(--ink);
+        }
+
+        .doc-item span {
+            font-size: 0.82rem;
+            color: var(--dim);
+            line-height: 1.5;
+        }
+
+        .contact-block {
+            font-size: 0.92rem;
+            line-height: 1.85;
+            color: var(--dim);
+        }
+
+        .contact-block strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--sage-dark);
+        }
+
+        .contact-block a { color: var(--sage); }
+
+        /* ─── FORM ─── */
+        .form-card {
+            border-radius: var(--r);
+            border: 1px solid var(--line);
+            background: var(--card);
+            box-shadow: var(--glow);
+            padding: 32px;
+        }
+
+        .form-header {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .form-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .form-header h2 {
+            margin: 0;
+            font-size: 1.55rem;
+            color: var(--sage-dark);
+        }
+
+        .status-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(46, 92, 66, 0.1);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--sage);
+            white-space: nowrap;
+        }
+
+        .status-dot::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf80;
+        }
+
+        .form-header p {
+            margin: 0;
+            color: var(--dim);
+            font-size: 0.93rem;
+            line-height: 1.7;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full { grid-column: 1 / -1; }
+
+        .field label {
+            font-size: 0.93rem;
+            font-weight: 700;
+            color: var(--sage-dark);
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 50px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(46, 92, 66, 0.18);
+            background: var(--ivory);
+            font: inherit;
+            color: var(--ink);
+            transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+        }
+
+        .field textarea {
+            min-height: 108px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--sage-soft);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(46, 92, 66, 0.09);
+        }
+
+        .field small {
+            font-size: 0.8rem;
+            color: var(--dim);
+            line-height: 1.5;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 0 22px;
+            border-radius: 14px;
+            border: 0;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background: var(--sage);
+            color: #fff;
+            flex: 1;
+            box-shadow: 0 12px 24px rgba(46, 92, 66, 0.2);
+        }
+
+        .btn-reset {
+            background: var(--stone);
+            color: var(--dim);
+            border: 1px solid var(--line);
+        }
+
+        /* ─── FOOTER ─── */
+        .site-footer {
+            background: var(--sage-dark);
+            color: rgba(255, 255, 255, 0.78);
+            padding: 38px 0 20px;
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(220px, 0.7fr);
+            gap: 36px;
+            align-items: start;
+        }
+
+        .footer-brand {
+            display: flex;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .footer-brand img {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            flex: 0 0 auto;
+        }
+
+        .footer-brand strong {
+            display: block;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .footer-links h4 {
+            margin: 0 0 14px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a,
+        .footer-links p {
+            display: block;
+            margin: 0 0 8px;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.44);
+            flex-wrap: wrap;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 980px) {
+            .main-grid,
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .stats-band {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .wrap { width: min(var(--w), calc(100% - 20px)); }
+
+            .stats-band,
+            .steps-row,
+            .form-grid,
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-band {
+                border-radius: 16px 16px 0 0;
+            }
+
+            .stat-cell { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .stat-cell:last-child { border-bottom: 0; }
+
+            .steps-row::before { display: none; }
+
+            .hero h1 { font-size: 2.1rem; }
+
+            .form-card { padding: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <a class="header-brand" href="#overview">
+            <img src="logo.jpg" alt="ตราสัญลักษณ์มหาวิทยาลัยศรีศิลปศาสตร์">
+            <div class="brand-info">
+                <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
+                <span>Srisilpasart University</span>
+            </div>
+        </a>
+        <div class="header-nav-area">
+            <p class="header-tagline">เปิดรับสมัคร 1 มิ.ย. – 31 ก.ค. 2569<br>งานรับสมัคร จ.–ศ. 08:30–16:30 น.</p>
+            <nav class="site-nav" aria-label="เมนูนำทาง">
+                <a href="#overview">หน้าแรก</a>
+                <a href="#application-form">สมัครเรียน</a>
+                <a href="#requirements">เอกสาร</a>
+                <a href="#contact">ติดต่อ</a>
+                <a class="btn-nav" href="#application-form">ยื่นใบสมัคร</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="overview">
+        <div class="wrap">
+            <div class="hero-center">
+                <div class="hero-badge">เปิดรับสมัคร ปีการศึกษา 2569</div>
+                <h1>เส้นทางสู่อนาคต<br>เริ่มต้นที่ศรีศิลปศาสตร์</h1>
+                <p class="hero-sub">
+                    ค้นพบศักยภาพของคุณผ่านหลักสูตรที่ออกแบบมาเพื่อโลกแห่งการสร้างสรรค์
+                    ทั้งด้านศิลปะ ภาษา สื่อ และธุรกิจ พร้อมคณาจารย์ผู้เชี่ยวชาญที่มุ่งส่งเสริมความเป็นเลิศในทุกด้าน
+                </p>
+                <div class="hero-actions">
+                    <a class="btn-hero-primary" href="#application-form">เริ่มกรอกใบสมัคร</a>
+                    <a class="btn-hero-ghost" href="#requirements">ตรวจสอบคุณสมบัติ</a>
+                </div>
+            </div>
+
+            <div class="stats-band">
+                <div class="stat-cell">
+                    <strong>รอบ Portfolio</strong>
+                    <span>คัดเลือกจากผลงานและความสามารถเฉพาะสาขา</span>
+                </div>
+                <div class="stat-cell">
+                    <strong>8 สาขาวิชา</strong>
+                    <span>ครอบคลุมศิลปะ สื่อ ภาษา และธุรกิจสร้างสรรค์</span>
+                </div>
+                <div class="stat-cell">
+                    <strong>ไม่มีค่าสมัคร</strong>
+                    <span>ยื่นใบสมัครออนไลน์ฟรี ตลอดช่วงเปิดรับ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="wrap">
+            <p class="steps-title">ขั้นตอนการสมัครเข้าศึกษา</p>
+            <div class="steps-row">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <strong>กรอกใบสมัครออนไลน์</strong>
+                    <p>ระบุข้อมูลส่วนตัว เลือกสาขาวิชาที่ต้องการ และแนบหลักฐานประกอบการสมัคร</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <strong>ส่งแฟ้มสะสมผลงาน</strong>
+                    <p>อัปโหลดผลงานหรือแนบลิงก์พอร์ตโฟลิโอเพื่อประกอบการพิจารณาคัดเลือก</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <strong>รอประกาศผลการคัดเลือก</strong>
+                    <p>ติดตามประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์ผ่านทางเว็บไซต์และอีเมลที่ให้ไว้</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-section">
+        <div class="wrap main-grid">
+
+            <!-- SIDEBAR LEFT -->
+            <aside class="sidebar">
+
+                <div class="info-card">
+                    <div class="card-header">
+                        <h3>กำหนดการรับสมัคร</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="date-list">
+                            <div class="date-row">
+                                <span>เปิดรับสมัคร</span>
+                                <strong>1 มิ.ย. 2569</strong>
+                            </div>
+                            <div class="date-row">
+                                <span>ปิดรับเอกสาร</span>
+                                <strong>31 ก.ค. 2569</strong>
+                            </div>
+                            <div class="date-row">
+                                <span>ประกาศสิทธิ์สัมภาษณ์</span>
+                                <strong>15 ส.ค. 2569</strong>
+                            </div>
+                            <div class="date-row">
+                                <span>สัมภาษณ์และคัดเลือก</span>
+                                <strong>22–26 ส.ค. 2569</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card" id="requirements">
+                    <div class="card-header">
+                        <h3>เอกสารที่ต้องเตรียม</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="doc-list">
+                            <div class="doc-item">
+                                <div class="doc-dot"></div>
+                                <div>
+                                    <strong>สำเนาบัตรประชาชน</strong>
+                                    <span>พร้อมรับรองสำเนาถูกต้อง</span>
+                                </div>
+                            </div>
+                            <div class="doc-item">
+                                <div class="doc-dot"></div>
+                                <div>
+                                    <strong>ระเบียนแสดงผลการเรียน</strong>
+                                    <span>ปพ.1 หรือเอกสารแสดงผลการเรียนล่าสุด</span>
+                                </div>
+                            </div>
+                            <div class="doc-item">
+                                <div class="doc-dot"></div>
+                                <div>
+                                    <strong>แฟ้มสะสมผลงาน</strong>
+                                    <span>สำหรับสาขาที่กำหนดคุณสมบัติด้านความคิดสร้างสรรค์</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card" id="contact">
+                    <div class="card-header">
+                        <h3>ติดต่อสำนักรับสมัคร</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="contact-block">
+                            <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
+                            งานรับสมัครนักศึกษาใหม่<br>
+                            โทรศัพท์ 02-555-2488<br>
+                            <a href="mailto:admission@srisilpasart.ac.th">admission@srisilpasart.ac.th</a><br><br>
+                            จันทร์ – ศุกร์ เวลา 08:30 – 16:30 น.
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- FORM RIGHT -->
+            <section class="form-card" id="application-form">
+                <div class="form-header">
+                    <div class="form-label-row">
+                        <h2>ใบสมัครเข้าศึกษาต่อ</h2>
+                        <span class="status-dot">กำลังเปิดรับ</span>
+                    </div>
+                    <p>กรุณากรอกข้อมูลให้ครบถ้วนและตรวจสอบความถูกต้องก่อนส่งใบสมัคร ข้อมูลที่ใช้ยืนยันตัวตนจะถูกเก็บรักษาอย่างเป็นความลับ</p>
+                </div>
+
+                <form action="#" method="post">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="citizen-id">เลขประจำตัวประชาชน</label>
+                            <input id="citizen-id" name="citizen-id" type="text" maxlength="13" placeholder="ตัวเลข 13 หลัก" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="student-name">ชื่อ – นามสกุล</label>
+                            <input id="student-name" name="student-name" type="text" placeholder="ชื่อเต็มของผู้สมัคร" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="email">ที่อยู่อีเมล</label>
+                            <input id="email" name="email" type="email" placeholder="example@srisilpasart.ac.th" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">หมายเลขโทรศัพท์</label>
+                            <input id="phone" name="phone" type="tel" placeholder="08x-xxx-xxxx" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="faculty">คณะที่ต้องการเข้าศึกษา</label>
+                            <select id="faculty" name="faculty" required>
+                                <option value="">— เลือกคณะ —</option>
+                                <option value="creative-arts">คณะศิลปกรรมและการออกแบบ</option>
+                                <option value="communication-arts">คณะนิเทศศาสตร์และสื่อสร้างสรรค์</option>
+                                <option value="humanities">คณะมนุษยศาสตร์และภาษา</option>
+                                <option value="business-creative">คณะบริหารธุรกิจสร้างสรรค์</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="program">สาขาวิชา</label>
+                            <select id="program" name="program" required>
+                                <option value="">— เลือกสาขาวิชา —</option>
+                                <option value="fine-arts">ทัศนศิลป์และสื่อผสม</option>
+                                <option value="digital-media">ดิจิทัลมีเดียอาร์ต</option>
+                                <option value="english-comm">ภาษาอังกฤษเพื่อการสื่อสารสากล</option>
+                                <option value="creative-business">ธุรกิจเชิงสร้างสรรค์</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="education-level">วุฒิการศึกษาเดิม</label>
+                            <select id="education-level" name="education-level">
+                                <option value="">— เลือกระดับการศึกษา —</option>
+                                <option value="m6">มัธยมศึกษาตอนปลาย (ม.6)</option>
+                                <option value="vocational">ประกาศนียบัตรวิชาชีพ (ปวช.)</option>
+                                <option value="high-vocational">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="gpa">GPA สะสม</label>
+                            <input id="gpa" name="gpa" type="text" placeholder="เช่น 3.50">
+                        </div>
+
+                        <div class="field full">
+                            <label for="address">ที่อยู่ปัจจุบัน</label>
+                            <textarea id="address" name="address" placeholder="บ้านเลขที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์"></textarea>
+                        </div>
+
+                        <div class="field full">
+                            <label for="portfolio">ลิงก์แฟ้มสะสมผลงาน (Portfolio)</label>
+                            <input id="portfolio" name="portfolio" type="url" placeholder="https://your-portfolio.com">
+                            <small>แนบ URL ผลงานหรือเว็บไซต์ส่วนตัว เพื่อใช้ประกอบการพิจารณาในสาขาที่เน้นทักษะสร้างสรรค์</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-submit" type="submit">ส่งใบสมัคร</button>
+                        <button class="btn btn-reset" type="reset">ล้างข้อมูลทั้งหมด</button>
+                    </div>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="logo.jpg" alt="ตราสัญลักษณ์มหาวิทยาลัยศรีศิลปศาสตร์">
+                    <div>
+                        <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
+                        <p>
+                            สถาบันอุดมศึกษาที่มุ่งพัฒนานักสร้างสรรค์รุ่นใหม่
+                            ผ่านหลักสูตรที่ผสานศาสตร์และศิลป์เข้าด้วยกัน
+                            พร้อมส่งเสริมการเรียนรู้ในสภาพแวดล้อมที่สร้างแรงบันดาลใจ
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>ช่องทางติดต่อ</h4>
+                    <p>22 ถนนศิลปศาสตร์ กรุงเทพมหานคร 10400</p>
+                    <p>โทรศัพท์ 02-555-2488</p>
+                    <a href="mailto:admission@srisilpasart.ac.th">admission@srisilpasart.ac.th</a>
+                    <a href="#application-form">ยื่นใบสมัครออนไลน์</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 มหาวิทยาลัยศรีศิลปศาสตร์ สงวนลิขสิทธิ์</span>
+                <span>งานรับสมัครนักศึกษา เปิดให้บริการ จ.–ศ. 08:30–16:30 น.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

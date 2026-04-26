@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รับสมัครนักศึกษาใหม่ | มหาวิทยาลัยบูรพาพิทักษ์</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
+    <style>
+        :root {
+            --navy: #0f2747;
+            --navy-deep: #09182c;
+            --gold: #d7b56d;
+            --gold-soft: #f0e0b5;
+            --cream: #f5f1e8;
+            --ink: #1f2937;
+            --muted: #5b6472;
+            --panel: rgba(255, 255, 255, 0.82);
+            --border: rgba(15, 39, 71, 0.12);
+            --shadow: 0 20px 60px rgba(9, 24, 44, 0.16);
+            --radius: 24px;
+            --max-width: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(215, 181, 109, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(255, 255, 255, 0.75), transparent 18%),
+                linear-gradient(180deg, #f9f6ef 0%, #edf2f7 100%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .shell {
+            width: min(var(--max-width), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: rgba(9, 24, 44, 0.88);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 84px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            padding: 8px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(215, 181, 109, 0.18));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            flex: 0 0 auto;
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-text strong {
+            display: block;
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .brand-text span {
+            display: block;
+            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .main-nav a {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover,
+        .main-nav a:focus-visible {
+            color: var(--gold-soft);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold) 0%, #f5deb0 100%);
+            color: var(--navy-deep);
+            font-weight: 700;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 54px 0 42px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 24px 0 auto;
+            height: 520px;
+            background:
+                linear-gradient(135deg, rgba(9, 24, 44, 0.95), rgba(15, 39, 71, 0.82)),
+                radial-gradient(circle at top right, rgba(215, 181, 109, 0.4), transparent 35%);
+            border-radius: 36px;
+            z-index: -1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .hero-copy {
+            padding: 56px 48px 48px;
+            color: #fff;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--gold-soft);
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy h1 {
+            margin: 20px 0 14px;
+            font-size: clamp(2rem, 4vw, 4rem);
+            line-height: 1.05;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            max-width: 640px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .hero-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .highlight {
+            padding: 18px 18px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.2rem;
+        }
+
+        .highlight span {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .hero-panel,
+        .section-panel {
+            border-radius: var(--radius);
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+        }
+
+        .hero-panel {
+            align-self: end;
+            margin: 38px 22px 0 0;
+            padding: 26px;
+        }
+
+        .hero-panel h2 {
+            margin: 0 0 18px;
+            font-size: 1.2rem;
+            color: var(--navy);
+        }
+
+        .hero-panel ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+
+        .hero-panel li {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 14px;
+            align-items: start;
+        }
+
+        .hero-panel li strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--navy);
+            font-size: 0.98rem;
+        }
+
+        .hero-panel li span {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .step {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(145deg, var(--navy) 0%, #193862 100%);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .main-content {
+            padding: 12px 0 56px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.75fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .form-panel {
+            padding: 30px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-head h2 {
+            margin: 0 0 10px;
+            color: var(--navy);
+            font-size: 1.7rem;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .tag {
+            flex: 0 0 auto;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(215, 181, 109, 0.16);
+            color: #8a6720;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            color: var(--navy);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 50px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--ink);
+            font: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: rgba(15, 39, 71, 0.4);
+            box-shadow: 0 0 0 4px rgba(15, 39, 71, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .field small {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 0 22px;
+            border-radius: 16px;
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--navy) 0%, #20426e 100%);
+            color: #fff;
+            box-shadow: 0 16px 32px rgba(15, 39, 71, 0.18);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--navy);
+            border: 1px solid rgba(15, 39, 71, 0.14);
+        }
+
+        .aside-stack {
+            display: grid;
+            gap: 20px;
+        }
+
+        .info-panel {
+            padding: 24px;
+        }
+
+        .info-panel h3 {
+            margin: 0 0 16px;
+            color: var(--navy);
+            font-size: 1.2rem;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .info-item {
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: rgba(15, 39, 71, 0.05);
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--navy);
+        }
+
+        .info-item span,
+        .info-panel p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.92rem;
+        }
+
+        .deadline {
+            background:
+                linear-gradient(135deg, rgba(15, 39, 71, 0.96), rgba(27, 63, 104, 0.96)),
+                radial-gradient(circle at top right, rgba(215, 181, 109, 0.42), transparent 38%);
+            color: #fff;
+        }
+
+        .deadline h3,
+        .deadline p,
+        .deadline strong,
+        .deadline span {
+            color: inherit;
+        }
+
+        .deadline .info-item {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .site-footer {
+            background: var(--navy-deep);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 34px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) repeat(2, minmax(180px, 0.6fr));
+            gap: 24px;
+            align-items: start;
+        }
+
+        .footer-brand {
+            display: flex;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .footer-brand img {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-brand strong,
+        .footer-col h4 {
+            color: #fff;
+        }
+
+        .footer-brand strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .footer-brand p,
+        .footer-col a,
+        .footer-col p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            margin: 0 0 14px;
+            font-size: 1rem;
+        }
+
+        .footer-col {
+            display: grid;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.54);
+            font-size: 0.84rem;
+            text-align: center;
+        }
+
+        @media (max-width: 980px) {
+            .header-bar,
+            .section-head,
+            .content-grid,
+            .hero-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-bar {
+                display: grid;
+                padding: 14px 0 18px;
+            }
+
+            .main-nav {
+                justify-content: flex-start;
+            }
+
+            .hero::before {
+                height: 100%;
+                inset: 16px 0 0;
+            }
+
+            .hero-copy {
+                padding: 38px 26px 18px;
+            }
+
+            .hero-panel {
+                margin: 0 18px 18px;
+            }
+
+            .content-grid {
+                display: grid;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .shell {
+                width: min(var(--max-width), calc(100% - 20px));
+            }
+
+            .hero {
+                padding-top: 24px;
+            }
+
+            .hero-copy h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-highlights,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-panel,
+            .info-panel {
+                padding: 22px;
+            }
+
+            .main-nav {
+                gap: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell header-bar">
+            <div class="brand">
+                <img class="brand-mark" src="logo.jpg" alt="ตราสัญลักษณ์มหาวิทยาลัย">
+                <div class="brand-text">
+                    <strong>มหาวิทยาลัยบูรพาพิทักษ์</strong>
+                    <span>Student Admissions</span>
+                </div>
+            </div>
+            <nav class="main-nav" aria-label="เมนูหลัก">
+                <a href="#overview">ภาพรวม</a>
+                <a href="#application-form">สมัครเรียน</a>
+                <a href="#requirements">เอกสาร</a>
+                <a href="#contact">ติดต่อ</a>
+                <a class="nav-cta" href="#application-form">เริ่มสมัคร</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="overview">
+        <div class="shell hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">Admissions 2026</span>
+                    <h1>รับสมัครนักศึกษาใหม่ ปีการศึกษา 2569</h1>
+                    <p>
+                        ระบบรับสมัครนักศึกษาออนไลน์ของมหาวิทยาลัย
+                        สำหรับผู้สมัครระดับปริญญาตรี สามารถกรอกข้อมูลส่วนตัว
+                        ตรวจสอบคุณสมบัติ และยืนยันการสมัครผ่านระบบออนไลน์
+                    </p>
+                    <div class="hero-highlights">
+                        <div class="highlight">
+                            <strong>4 คณะเด่น</strong>
+                            <span>วิศวกรรมศาสตร์ บริหารธุรกิจ ดิจิทัลมีเดีย และวิทยาศาสตร์สุขภาพ</span>
+                        </div>
+                        <div class="highlight">
+                            <strong>เปิดรับรอบ 1</strong>
+                            <span>แฟ้มสะสมผลงานและคุณสมบัติพิเศษ สำหรับผู้สมัครระดับปริญญาตรี</span>
+                        </div>
+                        <div class="highlight">
+                            <strong>สมัครออนไลน์</strong>
+                            <span>กรอกข้อมูลเบื้องต้น อัปโหลดเอกสาร และติดตามสถานะการสมัคร</span>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="hero-panel">
+                    <h2>ขั้นตอนการสมัคร</h2>
+                    <ul>
+                        <li>
+                            <div class="step">1</div>
+                            <div>
+                                <strong>กรอกข้อมูลผู้สมัคร</strong>
+                                <span>ระบุข้อมูลส่วนตัว ช่องทางติดต่อ และหลักสูตรที่ต้องการสมัคร</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step">2</div>
+                            <div>
+                                <strong>ตรวจสอบคุณสมบัติ</strong>
+                                <span>เตรียม GPA เอกสารแสดงผลการเรียน และแฟ้มสะสมผลงานตามเกณฑ์</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step">3</div>
+                            <div>
+                                <strong>ส่งใบสมัคร</strong>
+                                <span>ยืนยันการสมัครภายในกำหนด และรอตรวจสอบสถานะผ่านระบบประกาศผล</span>
+                            </div>
+                        </li>
+                    </ul>
+                </aside>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="shell content-grid">
+            <section class="section-panel form-panel" id="application-form">
+                <div class="section-head">
+                    <div>
+                        <h2>แบบฟอร์มสมัครเข้าศึกษา</h2>
+                        <p>กรอกข้อมูลเพื่อยื่นสมัครเข้าศึกษาต่อระดับปริญญาตรี พร้อมตรวจสอบข้อมูลก่อนยืนยันการสมัคร</p>
+                    </div>
+                    <div class="tag">เปิดรับสมัครออนไลน์</div>
+                </div>
+
+                <form action="#" method="post">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="citizen-id">เลขบัตรประชาชน</label>
+                            <input id="citizen-id" name="citizen-id" type="text" maxlength="13" placeholder="กรอกเลข 13 หลัก" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="student-name">ชื่อ - นามสกุล</label>
+                            <input id="student-name" name="student-name" type="text" placeholder="ชื่อผู้สมัคร" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="email">อีเมล</label>
+                            <input id="email" name="email" type="email" placeholder="example@university.ac.th" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">เบอร์โทรศัพท์</label>
+                            <input id="phone" name="phone" type="tel" placeholder="08x-xxx-xxxx" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="faculty">คณะที่ต้องการสมัคร</label>
+                            <select id="faculty" name="faculty" required>
+                                <option value="">เลือกคณะ</option>
+                                <option value="engineering">คณะวิศวกรรมศาสตร์</option>
+                                <option value="business">คณะบริหารธุรกิจ</option>
+                                <option value="media">คณะดิจิทัลมีเดียและการออกแบบ</option>
+                                <option value="health">คณะวิทยาศาสตร์สุขภาพ</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="program">สาขาวิชา</label>
+                            <select id="program" name="program" required>
+                                <option value="">เลือกสาขาวิชา</option>
+                                <option value="computer-engineering">วิศวกรรมคอมพิวเตอร์</option>
+                                <option value="marketing">การตลาดดิจิทัล</option>
+                                <option value="animation">แอนิเมชันและสื่อสร้างสรรค์</option>
+                                <option value="public-health">สาธารณสุขศาสตร์</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="education-level">ระดับการศึกษาเดิม</label>
+                            <select id="education-level" name="education-level">
+                                <option value="">เลือกระดับการศึกษา</option>
+                                <option value="m6">มัธยมศึกษาตอนปลาย</option>
+                                <option value="vocational">ปวช.</option>
+                                <option value="high-vocational">ปวส.</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="gpa">เกรดเฉลี่ยสะสม</label>
+                            <input id="gpa" name="gpa" type="text" placeholder="เช่น 3.25">
+                        </div>
+
+                        <div class="field full">
+                            <label for="address">ที่อยู่ปัจจุบัน</label>
+                            <textarea id="address" name="address" placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด"></textarea>
+                        </div>
+
+                        <div class="field full">
+                            <label for="portfolio">ลิงก์แฟ้มสะสมผลงาน</label>
+                            <input id="portfolio" name="portfolio" type="url" placeholder="https://portfolio.example.com">
+                            <small>ผู้สมัครสามารถแนบลิงก์ผลงานหรือเว็บไซต์แสดงผลงานเพิ่มเติมเพื่อประกอบการพิจารณา</small>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn btn-primary" type="submit">ยืนยันการสมัคร</button>
+                        <button class="btn btn-secondary" type="reset">ล้างข้อมูล</button>
+                    </div>
+                </form>
+            </section>
+
+            <aside class="aside-stack">
+                <section class="section-panel info-panel deadline">
+                    <h3>กำหนดการรับสมัคร</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <strong>เปิดระบบสมัคร</strong>
+                            <span>1 มิถุนายน 2569</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>ปิดรับเอกสาร</strong>
+                            <span>31 กรกฎาคม 2569</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>ประกาศรายชื่อ</strong>
+                            <span>15 สิงหาคม 2569</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-panel info-panel" id="requirements">
+                    <h3>เอกสารประกอบการสมัคร</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <strong>สำเนาบัตรประชาชน</strong>
+                            <span>ใช้สำหรับยืนยันตัวตนของผู้สมัคร</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>ใบแสดงผลการเรียน</strong>
+                            <span>เอกสารผลการเรียนล่าสุดหรือระเบียนแสดงผล</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>แฟ้มสะสมผลงาน</strong>
+                            <span>สำหรับสาขาที่กำหนดเงื่อนไขด้านความสามารถพิเศษ</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-panel info-panel" id="contact">
+                    <h3>ข้อมูลติดต่อ</h3>
+                    <p>สำนักรับสมัครนักศึกษา มหาวิทยาลัยบูรพาพิทักษ์<br>โทร 02-123-4567<br>admissions@burapaphitak.ac.th</p>
+                    <p>เวลาทำการ วันจันทร์ - ศุกร์ 08:30 - 16:30 น.</p>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="shell">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.jpg" alt="โลโก้มหาวิทยาลัย">
+                    <div>
+                        <strong>มหาวิทยาลัยบูรพาพิทักษ์</strong>
+                        <p>สำนักรับสมัครนักศึกษา ให้บริการข้อมูลการสมัคร หลักสูตรที่เปิดรับ เอกสารประกอบ และช่องทางติดต่อสำหรับผู้สมัคร</p>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>เมนูหลัก</h4>
+                    <a href="#overview">ภาพรวม</a>
+                    <a href="#application-form">สมัครเรียน</a>
+                    <a href="#requirements">เอกสาร</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>ติดต่อ</h4>
+                    <p>99 ถนนการศึกษา เขตบางกอก 10200</p>
+                    <p>โทร 02-123-4567</p>
+                    <p>สำนักรับสมัครนักศึกษา</p>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2026 มหาวิทยาลัยบูรพาพิทักษ์ สงวนลิขสิทธิ์</div>
+        </div>
+    </footer>
+</body>
+</html>
