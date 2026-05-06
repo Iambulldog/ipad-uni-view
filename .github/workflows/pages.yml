@@ -1,0 +1,46 @@
+# Simple GitHub Actions workflow for GitHub Pages deployment
+# This workflow will build and deploy the site from the main branch to GitHub Pages
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Prepare combined site
+        run: |
+          mkdir -p _site/burapaphitak
+          mkdir -p _site/srisilpasart
+          mkdir -p _site/tcas-simulator
+          cp -r burapaphitak/* _site/burapaphitak/
+          cp -r srisilpasart/* _site/srisilpasart/
+          cp -r tcas-simulator/* _site/tcas-simulator/
+          # Optionally copy a root index.html or README.md if needed
+          if [ -f index.html ]; then cp index.html _site/; fi
+          if [ -f README.md ]; then cp README.md _site/; fi
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
