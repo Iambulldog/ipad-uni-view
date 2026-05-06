@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รับสมัครนักศึกษาใหม่ | มหาวิทยาลัยศรีศิลปศาสตร์</title>
+    <title>ประกาศรายชื่อนักศึกษาที่สอบติด | มหาวิทยาลัยศรีศิลปศาสตร์</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
     <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
@@ -44,7 +44,6 @@
             margin: 0 auto;
         }
 
-        /* ─── HEADER ─── */
         .site-header {
             position: sticky;
             top: 0;
@@ -152,30 +151,6 @@
             color: #fff;
         }
 
-        @media (max-width: 980px) {
-            .site-header {
-                flex-direction: column;
-                min-height: auto;
-            }
-
-            .header-brand {
-                width: 100%;
-                padding: 14px 20px;
-            }
-
-            .header-nav-area {
-                width: 100%;
-                padding: 10px 20px 12px;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            .header-tagline { display: none; }
-
-            .site-nav { flex-wrap: wrap; }
-        }
-
-        /* ─── HERO ─── */
         .hero {
             padding: 52px 0 0;
             overflow: hidden;
@@ -260,7 +235,6 @@
             border: 1.5px solid var(--sage);
         }
 
-        /* ─── STATS BAND ─── */
         .stats-band {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -289,7 +263,6 @@
             line-height: 1.5;
         }
 
-        /* ─── STEPS ─── */
         .steps-section {
             background: var(--stone);
             padding: 36px 0;
@@ -362,10 +335,7 @@
             line-height: 1.6;
         }
 
-        /* ─── MAIN ─── */
-        .main-section {
-            padding: 40px 0 60px;
-        }
+        .main-section { padding: 40px 0 60px; }
 
         .main-grid {
             display: grid;
@@ -374,13 +344,10 @@
             align-items: start;
         }
 
-        /* ─── SIDEBAR (LEFT) ─── */
-        .sidebar {
-            display: grid;
-            gap: 20px;
-        }
+        .sidebar { display: grid; gap: 20px; }
 
-        .info-card {
+        .info-card,
+        .result-card {
             border-radius: var(--r);
             border: 1px solid var(--line);
             background: var(--card);
@@ -400,13 +367,9 @@
             color: var(--sage-dark);
         }
 
-        .card-body {
-            padding: 16px 20px 20px;
-        }
+        .card-body { padding: 16px 20px 20px; }
 
-        .date-list {
-            display: grid;
-        }
+        .date-list { display: grid; }
 
         .date-row {
             display: flex;
@@ -418,7 +381,6 @@
         }
 
         .date-row:last-child { border-bottom: 0; }
-
         .date-row span { font-size: 0.9rem; color: var(--dim); }
 
         .date-row strong {
@@ -427,10 +389,7 @@
             text-align: right;
         }
 
-        .doc-list {
-            display: grid;
-            gap: 10px;
-        }
+        .doc-list { display: grid; gap: 10px; }
 
         .doc-item {
             display: flex;
@@ -477,22 +436,15 @@
 
         .contact-block a { color: var(--sage); }
 
-        /* ─── FORM ─── */
-        .form-card {
-            border-radius: var(--r);
-            border: 1px solid var(--line);
-            background: var(--card);
-            box-shadow: var(--glow);
-            padding: 32px;
-        }
+        .result-card { padding: 32px; }
 
-        .form-header {
-            margin-bottom: 28px;
+        .result-header {
+            margin-bottom: 24px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--line);
         }
 
-        .form-label-row {
+        .result-label-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -500,7 +452,7 @@
             margin-bottom: 8px;
         }
 
-        .form-header h2 {
+        .result-header h2 {
             margin: 0;
             font-size: 1.55rem;
             color: var(--sage-dark);
@@ -527,39 +479,30 @@
             background: #4caf80;
         }
 
-        .form-header p {
+        .result-header p {
             margin: 0;
             color: var(--dim);
             font-size: 0.93rem;
             line-height: 1.7;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+        .search-box {
+            position: relative;
+            margin-bottom: 18px;
         }
 
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .field.full { grid-column: 1 / -1; }
-
-        .field label {
+        .search-box label {
+            display: block;
+            margin-bottom: 7px;
             font-size: 0.93rem;
             font-weight: 700;
             color: var(--sage-dark);
         }
 
-        .field input,
-        .field select,
-        .field textarea {
+        .search-box input {
             width: 100%;
-            min-height: 50px;
-            padding: 12px 14px;
+            min-height: 54px;
+            padding: 12px 16px;
             border-radius: 14px;
             border: 1.5px solid rgba(46, 92, 66, 0.18);
             background: var(--ivory);
@@ -568,62 +511,146 @@
             transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
         }
 
-        .field textarea {
-            min-height: 108px;
-            resize: vertical;
-        }
-
-        .field input:focus,
-        .field select:focus,
-        .field textarea:focus {
+        .search-box input:focus {
             outline: none;
             border-color: var(--sage-soft);
             background: #fff;
             box-shadow: 0 0 0 4px rgba(46, 92, 66, 0.09);
         }
 
-        .field small {
-            font-size: 0.8rem;
+        .result-count {
+            margin: 0 0 10px;
+            font-size: 0.86rem;
             color: var(--dim);
-            line-height: 1.5;
         }
 
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 26px;
-            padding-top: 22px;
-            border-top: 1px solid var(--line);
+        .student-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
         }
 
-        .btn {
-            display: inline-flex;
+        .student-item {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
             align-items: center;
-            justify-content: center;
-            min-height: 50px;
-            padding: 0 22px;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: var(--stone);
+            border: 1px solid rgba(46, 92, 66, 0.08);
+        }
+
+        .student-item:nth-child(odd) {
+            background: #f4efe5;
+        }
+
+        .student-item:nth-child(even) {
+            background: #fbf8f2;
+        }
+
+        .student-no {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--sage);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.78rem;
+        }
+
+        .student-item:nth-child(even) .student-no {
+            background: var(--sage-soft);
+        }
+
+        .student-name strong {
+            display: block;
+            color: var(--ink);
+            font-size: 0.92rem;
+            line-height: 1.25;
+        }
+
+        .student-name span {
+            display: block;
+            margin-top: 2px;
+            color: var(--dim);
+            font-size: 0.78rem;
+            line-height: 1.3;
+        }
+
+        .student-status {
+            color: var(--sage);
+            font-size: 0.76rem;
+            font-weight: 700;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .empty-result {
+            display: none;
+            padding: 20px;
             border-radius: 14px;
-            border: 0;
+            background: rgba(201, 123, 75, 0.1);
+            color: var(--dim);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            font-size: 0.88rem;
+            color: var(--dim);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            min-width: 42px;
+            height: 42px;
+            padding: 0 14px;
+            border: 1px solid rgba(46, 92, 66, 0.18);
+            border-radius: 12px;
+            background: #fff;
+            color: var(--sage-dark);
             font: inherit;
             font-weight: 700;
             cursor: pointer;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
         }
 
-        .btn-submit {
+        .page-btn:hover:not(:disabled) {
+            background: rgba(46, 92, 66, 0.08);
+            border-color: rgba(46, 92, 66, 0.28);
+        }
+
+        .page-btn.is-active {
             background: var(--sage);
+            border-color: var(--sage);
             color: #fff;
-            flex: 1;
-            box-shadow: 0 12px 24px rgba(46, 92, 66, 0.2);
         }
 
-        .btn-reset {
-            background: var(--stone);
-            color: var(--dim);
-            border: 1px solid var(--line);
+        .page-btn:disabled {
+            opacity: 0.45;
+            cursor: default;
         }
 
-        /* ─── FOOTER ─── */
         .site-footer {
             background: var(--sage-dark);
             color: rgba(255, 255, 255, 0.78);
@@ -694,20 +721,34 @@
             flex-wrap: wrap;
         }
 
-        /* ─── RESPONSIVE ─── */
         @media (max-width: 980px) {
+            .site-header {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .header-brand {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .header-nav-area {
+                width: 100%;
+                padding: 10px 20px 12px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header-tagline { display: none; }
+            .site-nav { flex-wrap: wrap; }
+
             .main-grid,
             .footer-inner {
                 grid-template-columns: 1fr;
             }
 
-            .sidebar {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .stats-band {
-                border-radius: 20px 20px 0 0;
-            }
+            .sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .stats-band { border-radius: 20px 20px 0 0; }
         }
 
         @media (max-width: 760px) {
@@ -715,23 +756,36 @@
 
             .stats-band,
             .steps-row,
-            .form-grid,
-            .sidebar {
+            .sidebar,
+            .student-list {
                 grid-template-columns: 1fr;
             }
 
-            .stats-band {
-                border-radius: 16px 16px 0 0;
-            }
-
+            .stats-band { border-radius: 16px 16px 0 0; }
             .stat-cell { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .stat-cell:last-child { border-bottom: 0; }
-
             .steps-row::before { display: none; }
-
             .hero h1 { font-size: 2.1rem; }
+            .result-card { padding: 22px; }
 
-            .form-card { padding: 22px; }
+            .result-label-row,
+            .student-item {
+                grid-template-columns: 1fr;
+            }
+
+            .result-label-row {
+                display: grid;
+            }
+
+            .student-item {
+                align-items: start;
+            }
+
+            .student-status { white-space: normal; }
+
+            .pagination {
+                align-items: stretch;
+            }
         }
     </style>
 </head>
@@ -746,13 +800,13 @@
             </div>
         </a>
         <div class="header-nav-area">
-            <p class="header-tagline">เปิดรับสมัคร 1 มิ.ย. – 31 ก.ค. 2569<br>งานรับสมัคร จ.–ศ. 08:30–16:30 น.</p>
+            <p class="header-tagline">ประกาศผลการคัดเลือก ปีการศึกษา 2569<br>ตรวจสอบรายชื่อได้ตลอด 24 ชั่วโมง</p>
             <nav class="site-nav" aria-label="เมนูนำทาง">
                 <a href="#overview">หน้าแรก</a>
-                <a href="#application-form">สมัครเรียน</a>
-                <a href="#requirements">เอกสาร</a>
+                <a href="#result-list">รายชื่อผู้สอบติด</a>
+                <a href="#reporting">กำหนดการรายงานตัว</a>
                 <a href="#contact">ติดต่อ</a>
-                <a class="btn-nav" href="#application-form">ยื่นใบสมัคร</a>
+                <a class="btn-nav" href="admission.html">หน้าใบสมัครเดิม</a>
             </nav>
         </div>
     </header>
@@ -760,53 +814,52 @@
     <section class="hero" id="overview">
         <div class="wrap">
             <div class="hero-center">
-                <div class="hero-badge">เปิดรับสมัคร ปีการศึกษา 2569</div>
-                <h1>เส้นทางสู่อนาคต<br>เริ่มต้นที่ศรีศิลปศาสตร์</h1>
+                <div class="hero-badge">ประกาศผลการคัดเลือก ปีการศึกษา 2569</div>
+                <h1>รายชื่อนักศึกษาที่สอบติด<br>มหาวิทยาลัยศรีศิลปศาสตร์</h1>
                 <p class="hero-sub">
-                    ค้นพบศักยภาพของคุณผ่านหลักสูตรที่ออกแบบมาเพื่อโลกแห่งการสร้างสรรค์
-                    ทั้งด้านศิลปะ ภาษา สื่อ และธุรกิจ พร้อมคณาจารย์ผู้เชี่ยวชาญที่มุ่งส่งเสริมความเป็นเลิศในทุกด้าน
+                    ตรวจสอบรายชื่อผู้ผ่านการคัดเลือกเข้าศึกษาต่อ และเตรียมเอกสารสำหรับการรายงานตัวตามกำหนดการของมหาวิทยาลัย
                 </p>
                 <div class="hero-actions">
-                    <a class="btn-hero-primary" href="#application-form">เริ่มกรอกใบสมัคร</a>
-                    <a class="btn-hero-ghost" href="#requirements">ตรวจสอบคุณสมบัติ</a>
+                    <a class="btn-hero-primary" href="#result-list">ค้นหารายชื่อ</a>
+                    <a class="btn-hero-ghost" href="#reporting">ดูกำหนดการรายงานตัว</a>
                 </div>
             </div>
 
             <div class="stats-band">
                 <div class="stat-cell">
                     <strong>รอบ Portfolio</strong>
-                    <span>คัดเลือกจากผลงานและความสามารถเฉพาะสาขา</span>
+                    <span>ประกาศรายชื่อผู้ผ่านการคัดเลือกอย่างเป็นทางการ</span>
                 </div>
                 <div class="stat-cell">
-                    <strong>8 สาขาวิชา</strong>
-                    <span>ครอบคลุมศิลปะ สื่อ ภาษา และธุรกิจสร้างสรรค์</span>
+                    <strong>1512 คน</strong>
+                    <span>ผู้มีสิทธิ์รายงานตัวเข้าศึกษาในรอบนี้</span>
                 </div>
                 <div class="stat-cell">
-                    <strong>ไม่มีค่าสมัคร</strong>
-                    <span>ยื่นใบสมัครออนไลน์ฟรี ตลอดช่วงเปิดรับ</span>
+                    <strong>ยืนยันสิทธิ์</strong>
+                    <span>ภายในวันที่ 20 สิงหาคม 2569</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="steps-section">
+    <section class="steps-section" id="reporting">
         <div class="wrap">
-            <p class="steps-title">ขั้นตอนการสมัครเข้าศึกษา</p>
+            <p class="steps-title">ขั้นตอนสำหรับผู้ผ่านการคัดเลือก</p>
             <div class="steps-row">
                 <div class="step-item">
                     <div class="step-num">1</div>
-                    <strong>กรอกใบสมัครออนไลน์</strong>
-                    <p>ระบุข้อมูลส่วนตัว เลือกสาขาวิชาที่ต้องการ และแนบหลักฐานประกอบการสมัคร</p>
+                    <strong>ตรวจสอบรายชื่อ</strong>
+                    <p>ค้นหาชื่อหรือนามสกุลจากช่องค้นหา และตรวจสอบคณะกับสาขาวิชาที่ผ่านการคัดเลือก</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">2</div>
-                    <strong>ส่งแฟ้มสะสมผลงาน</strong>
-                    <p>อัปโหลดผลงานหรือแนบลิงก์พอร์ตโฟลิโอเพื่อประกอบการพิจารณาคัดเลือก</p>
+                    <strong>ยืนยันสิทธิ์ออนไลน์</strong>
+                    <p>กรอกแบบฟอร์มยืนยันสิทธิ์ตามลิงก์ที่มหาวิทยาลัยส่งให้ทางอีเมลของผู้สมัคร</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">3</div>
-                    <strong>รอประกาศผลการคัดเลือก</strong>
-                    <p>ติดตามประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์ผ่านทางเว็บไซต์และอีเมลที่ให้ไว้</p>
+                    <strong>รายงานตัวนักศึกษาใหม่</strong>
+                    <p>นำเอกสารตัวจริงมาตรวจสอบตามวันและเวลาที่สำนักทะเบียนกำหนด</p>
                 </div>
             </div>
         </div>
@@ -814,61 +867,58 @@
 
     <main class="main-section">
         <div class="wrap main-grid">
-
-            <!-- SIDEBAR LEFT -->
             <aside class="sidebar">
-
                 <div class="info-card">
                     <div class="card-header">
-                        <h3>กำหนดการรับสมัคร</h3>
+                        <h3>กำหนดการสำคัญ</h3>
                     </div>
                     <div class="card-body">
                         <div class="date-list">
                             <div class="date-row">
-                                <span>เปิดรับสมัคร</span>
-                                <strong>1 มิ.ย. 2569</strong>
-                            </div>
-                            <div class="date-row">
-                                <span>ปิดรับเอกสาร</span>
-                                <strong>31 ก.ค. 2569</strong>
-                            </div>
-                            <div class="date-row">
-                                <span>ประกาศสิทธิ์สัมภาษณ์</span>
+                                <span>ประกาศผลคัดเลือก</span>
                                 <strong>15 ส.ค. 2569</strong>
                             </div>
                             <div class="date-row">
-                                <span>สัมภาษณ์และคัดเลือก</span>
-                                <strong>22–26 ส.ค. 2569</strong>
+                                <span>ยืนยันสิทธิ์ออนไลน์</span>
+                                <strong>15–20 ส.ค. 2569</strong>
+                            </div>
+                            <div class="date-row">
+                                <span>ชำระค่าขึ้นทะเบียน</span>
+                                <strong>21–25 ส.ค. 2569</strong>
+                            </div>
+                            <div class="date-row">
+                                <span>รายงานตัวนักศึกษาใหม่</span>
+                                <strong>30 ส.ค. 2569</strong>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="info-card" id="requirements">
+                <div class="info-card">
                     <div class="card-header">
-                        <h3>เอกสารที่ต้องเตรียม</h3>
+                        <h3>เอกสารวันรายงานตัว</h3>
                     </div>
                     <div class="card-body">
                         <div class="doc-list">
                             <div class="doc-item">
                                 <div class="doc-dot"></div>
                                 <div>
-                                    <strong>สำเนาบัตรประชาชน</strong>
-                                    <span>พร้อมรับรองสำเนาถูกต้อง</span>
+                                    <strong>บัตรประชาชนตัวจริง</strong>
+                                    <span>พร้อมสำเนา 2 ชุด และรับรองสำเนาถูกต้อง</span>
                                 </div>
                             </div>
                             <div class="doc-item">
                                 <div class="doc-dot"></div>
                                 <div>
                                     <strong>ระเบียนแสดงผลการเรียน</strong>
-                                    <span>ปพ.1 หรือเอกสารแสดงผลการเรียนล่าสุด</span>
+                                    <span>ฉบับสำเร็จการศึกษาหรือเอกสารรับรองจากสถานศึกษา</span>
                                 </div>
                             </div>
                             <div class="doc-item">
                                 <div class="doc-dot"></div>
                                 <div>
-                                    <strong>แฟ้มสะสมผลงาน</strong>
-                                    <span>สำหรับสาขาที่กำหนดคุณสมบัติด้านความคิดสร้างสรรค์</span>
+                                    <strong>รูปถ่ายนักศึกษา</strong>
+                                    <span>ขนาด 1 นิ้ว จำนวน 2 รูป แต่งกายสุภาพ</span>
                                 </div>
                             </div>
                         </div>
@@ -877,109 +927,45 @@
 
                 <div class="info-card" id="contact">
                     <div class="card-header">
-                        <h3>ติดต่อสำนักรับสมัคร</h3>
+                        <h3>ติดต่อสำนักทะเบียน</h3>
                     </div>
                     <div class="card-body">
                         <div class="contact-block">
                             <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
-                            งานรับสมัครนักศึกษาใหม่<br>
+                            สำนักทะเบียนและประมวลผล<br>
                             โทรศัพท์ 02-555-2488<br>
                             <a href="mailto:admission@srisilpasart.ac.th">admission@srisilpasart.ac.th</a><br><br>
                             จันทร์ – ศุกร์ เวลา 08:30 – 16:30 น.
                         </div>
                     </div>
                 </div>
-
             </aside>
 
-            <!-- FORM RIGHT -->
-            <section class="form-card" id="application-form">
-                <div class="form-header">
-                    <div class="form-label-row">
-                        <h2>ใบสมัครเข้าศึกษาต่อ</h2>
-                        <span class="status-dot">กำลังเปิดรับ</span>
+            <section class="result-card" id="result-list">
+                <div class="result-header">
+                    <div class="result-label-row">
+                        <h2>รายชื่อผู้ผ่านการคัดเลือก</h2>
+                        <span class="status-dot">ประกาศแล้ว</span>
                     </div>
-                    <p>กรุณากรอกข้อมูลให้ครบถ้วนและตรวจสอบความถูกต้องก่อนส่งใบสมัคร ข้อมูลที่ใช้ยืนยันตัวตนจะถูกเก็บรักษาอย่างเป็นความลับ</p>
+                    <p>ค้นหาด้วยชื่อ นามสกุล คณะ หรือสาขาวิชา ระบบจะแสดงผลเฉพาะรายชื่อที่ตรงกับคำค้นหา</p>
                 </div>
 
-                <form action="#" method="post">
-                    <div class="form-grid">
-                        <div class="field">
-                            <label for="citizen-id">เลขประจำตัวประชาชน</label>
-                            <input id="citizen-id" name="citizen-id" type="text" maxlength="13" placeholder="ตัวเลข 13 หลัก" required>
-                        </div>
+                <div class="search-box">
+                    <label for="student-search">ค้นหารายชื่อนักศึกษา</label>
+                    <input id="student-search" type="search" placeholder="พิมพ์ชื่อ นามสกุล คณะ หรือสาขาวิชา" autocomplete="off">
+                </div>
 
-                        <div class="field">
-                            <label for="student-name">ชื่อ – นามสกุล</label>
-                            <input id="student-name" name="student-name" type="text" placeholder="ชื่อเต็มของผู้สมัคร" required>
-                        </div>
+                <p class="result-count" id="result-count"></p>
 
-                        <div class="field">
-                            <label for="email">ที่อยู่อีเมล</label>
-                            <input id="email" name="email" type="email" placeholder="example@srisilpasart.ac.th" required>
-                        </div>
+                <div class="student-list" id="student-list"></div>
 
-                        <div class="field">
-                            <label for="phone">หมายเลขโทรศัพท์</label>
-                            <input id="phone" name="phone" type="tel" placeholder="08x-xxx-xxxx" required>
-                        </div>
+                <div class="empty-result" id="empty-result">ไม่พบรายชื่อที่ตรงกับคำค้นหา กรุณาตรวจสอบการสะกดชื่อหรือนามสกุลอีกครั้ง</div>
 
-                        <div class="field">
-                            <label for="faculty">คณะที่ต้องการเข้าศึกษา</label>
-                            <select id="faculty" name="faculty" required>
-                                <option value="">— เลือกคณะ —</option>
-                                <option value="creative-arts">คณะศิลปกรรมและการออกแบบ</option>
-                                <option value="communication-arts">คณะนิเทศศาสตร์และสื่อสร้างสรรค์</option>
-                                <option value="humanities">คณะมนุษยศาสตร์และภาษา</option>
-                                <option value="business-creative">คณะบริหารธุรกิจสร้างสรรค์</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label for="program">สาขาวิชา</label>
-                            <select id="program" name="program" required>
-                                <option value="">— เลือกสาขาวิชา —</option>
-                                <option value="fine-arts">ทัศนศิลป์และสื่อผสม</option>
-                                <option value="digital-media">ดิจิทัลมีเดียอาร์ต</option>
-                                <option value="english-comm">ภาษาอังกฤษเพื่อการสื่อสารสากล</option>
-                                <option value="creative-business">ธุรกิจเชิงสร้างสรรค์</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label for="education-level">วุฒิการศึกษาเดิม</label>
-                            <select id="education-level" name="education-level">
-                                <option value="">— เลือกระดับการศึกษา —</option>
-                                <option value="m6">มัธยมศึกษาตอนปลาย (ม.6)</option>
-                                <option value="vocational">ประกาศนียบัตรวิชาชีพ (ปวช.)</option>
-                                <option value="high-vocational">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label for="gpa">GPA สะสม</label>
-                            <input id="gpa" name="gpa" type="text" placeholder="เช่น 3.50">
-                        </div>
-
-                        <div class="field full">
-                            <label for="address">ที่อยู่ปัจจุบัน</label>
-                            <textarea id="address" name="address" placeholder="บ้านเลขที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์"></textarea>
-                        </div>
-
-                        <div class="field full">
-                            <label for="portfolio">ลิงก์แฟ้มสะสมผลงาน (Portfolio)</label>
-                            <input id="portfolio" name="portfolio" type="url" placeholder="https://your-portfolio.com">
-                            <small>แนบ URL ผลงานหรือเว็บไซต์ส่วนตัว เพื่อใช้ประกอบการพิจารณาในสาขาที่เน้นทักษะสร้างสรรค์</small>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button class="btn btn-submit" type="submit">ส่งใบสมัคร</button>
-                        <button class="btn btn-reset" type="reset">ล้างข้อมูลทั้งหมด</button>
-                    </div>
-                </form>
+                <div class="pagination" id="pagination">
+                    <div class="pagination-info" id="pagination-info"></div>
+                    <div class="pagination-controls" id="pagination-controls"></div>
+                </div>
             </section>
-
         </div>
     </main>
 
@@ -1002,7 +988,7 @@
                     <p>22 ถนนศิลปศาสตร์ กรุงเทพมหานคร 10400</p>
                     <p>โทรศัพท์ 02-555-2488</p>
                     <a href="mailto:admission@srisilpasart.ac.th">admission@srisilpasart.ac.th</a>
-                    <a href="#application-form">ยื่นใบสมัครออนไลน์</a>
+                    <a href="admission.html">หน้าใบสมัครเดิม</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1012,5 +998,253 @@
         </div>
     </footer>
 
+    <script>
+        const baseStudents = [
+            {
+                name: "สินิทธา เจริญสกุล",
+                faculty: "คณะศิลปกรรมและการออกแบบ",
+                program: "สาขาดิจิทัลมีเดียอาร์ต",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "กัญญาภัค วัฒนศิลป์",
+                faculty: "คณะนิเทศศาสตร์และสื่อสร้างสรรค์",
+                program: "สาขาการผลิตสื่อดิจิทัล",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "น.ส. ภัคจิรา มนต์ไชยตระกูล",
+                faculty: "คณะอักษรศาสตร์",
+                program: "สาขาภาษาอังกฤษเพื่อการสื่อสารสากล",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ณัฐณิชา ภูมิสวัสดิ์",
+                faculty: "คณะมนุษยศาสตร์และภาษา",
+                program: "สาขาภาษาอังกฤษเพื่อการสื่อสารสากล",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ปริญญา เจริญกิจ",
+                faculty: "คณะศิลปกรรมและการออกแบบ",
+                program: "สาขาทัศนศิลป์และสื่อผสม",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ศศิธร อินทร์แก้ว",
+                faculty: "คณะนิเทศศาสตร์และสื่อสร้างสรรค์",
+                program: "สาขาการสื่อสารแบรนด์",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ภาคิน สุวรรณวงศ์",
+                faculty: "คณะบริหารธุรกิจสร้างสรรค์",
+                program: "สาขาการตลาดสร้างสรรค์",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "อริสรา เพชรประดับ",
+                faculty: "คณะมนุษยศาสตร์และภาษา",
+                program: "สาขาภาษาจีนเพื่อธุรกิจสร้างสรรค์",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "เมธัส จันทร์สว่าง",
+                faculty: "คณะศิลปกรรมและการออกแบบ",
+                program: "สาขาออกแบบนิเทศศิลป์",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ชลธิชา รัตนโชติ",
+                faculty: "คณะนิเทศศาสตร์และสื่อสร้างสรรค์",
+                program: "สาขาภาพยนตร์และสื่อภาพเคลื่อนไหว",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "ธีรภัทร แสงทอง",
+                faculty: "คณะบริหารธุรกิจสร้างสรรค์",
+                program: "สาขาการจัดการอีเวนต์",
+                status: "ผ่านการคัดเลือก",
+            },
+            {
+                name: "พิชญาภา เลิศนฤมิต",
+                faculty: "คณะมนุษยศาสตร์และภาษา",
+                program: "สาขาภาษาไทยเพื่อการสื่อสารสร้างสรรค์",
+                status: "ผ่านการคัดเลือก",
+            },
+        ];
+
+        const firstNames = [
+            "กฤตภาส", "กัญญาวีร์", "กิตติคุณ", "ขวัญชนก", "คมกริช", "จันทร์จิรา", "ชญานิศ", "ชยพล",
+            "ณภัทร", "ณัฐชา", "ณิชมน", "ดลภัทร", "ธนกฤต", "ธนพร", "ธีรเมธ", "นภสร",
+            "นราวรรณ", "นัฐวุฒิ", "ปภาวรินทร์", "ปัณฑิตา", "ปิยธิดา", "พงศกร", "พัทธนันท์", "พิมพ์ชนก",
+            "ภัทรพล", "ภาวิณี", "เมธาวี", "รชต", "รัตติกาล", "วชิรวิทย์", "วริศรา", "วริษฐา",
+            "ศุภกร", "ศุภกานต์", "สิปปกร", "สิริณัฏฐ์", "สุธีรา", "อภิชญา", "อรปรียา", "อชิรญา",
+        ];
+
+        const lastNames = [
+            "กาญจนวัฒน์", "เกษมสันต์", "คชเสนี", "จารุศิริ", "เจริญสกุล", "ชาญวิทย์", "ณรงค์เดช", "ถาวรสุข",
+            "ทองประเสริฐ", "ธนากุล", "บุญเลิศ", "ปัญญาแก้ว", "ปิ่นมณี", "พัฒนกุล", "ภูวดลชัย", "มงคลสวัสดิ์",
+            "ยศไกร", "รัตนพงศ์", "รุ่งเรืองศรี", "เลิศวิไล", "วัฒนชัย", "วรวงศ์", "ศรีสกุล", "สกุลไทย",
+            "สถาพร", "สุภกิจเจริญ", "หิรัญวงศ์", "อนันตโชค", "อินทรเดช", "อุดมทรัพย์", "เอกธนกิจ", "โอภาสกุล",
+        ];
+
+        const facultyPrograms = [
+            ["คณะศิลปกรรมและการออกแบบ", ["สาขาดิจิทัลมีเดียอาร์ต", "สาขาทัศนศิลป์และสื่อผสม", "สาขาออกแบบนิเทศศิลป์"]],
+            ["คณะนิเทศศาสตร์และสื่อสร้างสรรค์", ["สาขาการผลิตสื่อดิจิทัล", "สาขาการสื่อสารแบรนด์", "สาขาภาพยนตร์และสื่อภาพเคลื่อนไหว"]],
+            ["คณะบริหารธุรกิจสร้างสรรค์", ["สาขาธุรกิจเชิงสร้างสรรค์", "สาขาการตลาดสร้างสรรค์", "สาขาการจัดการอีเวนต์"]],
+            ["คณะมนุษยศาสตร์และภาษา", ["สาขาภาษาอังกฤษเพื่อการสื่อสารสากล", "สาขาภาษาจีนเพื่อธุรกิจสร้างสรรค์", "สาขาภาษาไทยเพื่อการสื่อสารสร้างสรรค์"]],
+        ];
+
+        function randomItem(items) {
+            return items[Math.floor(Math.random() * items.length)];
+        }
+
+        function createRandomStudent() {
+            const [faculty, programs] = randomItem(facultyPrograms);
+            return {
+                name: `${randomItem(firstNames)} ${randomItem(lastNames)}`,
+                faculty,
+                program: randomItem(programs),
+                status: "ผ่านการคัดเลือก",
+            };
+        }
+
+        const randomStudents = Array.from({ length: 1500 }, createRandomStudent);
+        const students = [...baseStudents, ...randomStudents];
+
+        const searchInput = document.getElementById("student-search");
+        const studentList = document.getElementById("student-list");
+        const resultCount = document.getElementById("result-count");
+        const emptyResult = document.getElementById("empty-result");
+        const pagination = document.getElementById("pagination");
+        const paginationInfo = document.getElementById("pagination-info");
+        const paginationControls = document.getElementById("pagination-controls");
+        const pageSize = 50;
+        let currentPage = 1;
+
+        function createStudentCard(student, index) {
+            const article = document.createElement("article");
+            article.className = "student-item";
+
+            const number = document.createElement("div");
+            number.className = "student-no";
+            number.textContent = String(index + 1).padStart(2, "0");
+
+            const detail = document.createElement("div");
+            detail.className = "student-name";
+
+            const name = document.createElement("strong");
+            name.textContent = student.name;
+
+            const program = document.createElement("span");
+            program.textContent = `${student.faculty} · ${student.program}`;
+
+            const status = document.createElement("div");
+            status.className = "student-status";
+            status.textContent = student.status;
+
+            detail.append(name, program);
+            article.append(number, detail, status);
+            return article;
+        }
+
+        function renderStudents(studentResults, page) {
+            const startIndex = (page - 1) * pageSize;
+            const pageStudents = studentResults.slice(startIndex, startIndex + pageSize);
+            studentList.replaceChildren(...pageStudents.map((student, index) => createStudentCard(student, startIndex + index)));
+            // Focus the first student item after rendering
+            setTimeout(() => {
+                const firstItem = studentList.querySelector('.student-item');
+                if (firstItem) {
+                    firstItem.setAttribute('tabindex', '-1');
+                    firstItem.focus();
+                }
+            }, 0);
+        }
+
+        function createPageButton(label, page, options = {}) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `page-btn${options.active ? " is-active" : ""}`;
+            button.textContent = label;
+            button.disabled = Boolean(options.disabled);
+
+            if (!button.disabled) {
+                button.addEventListener("click", () => {
+                    currentPage = page;
+                    updateResults();
+                });
+            }
+
+            return button;
+        }
+
+        function renderPagination(totalItems) {
+            const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+            currentPage = Math.min(currentPage, totalPages);
+
+            if (totalItems === 0) {
+                pagination.style.display = "none";
+                paginationControls.replaceChildren();
+                paginationInfo.textContent = "";
+                return;
+            }
+
+            pagination.style.display = "flex";
+
+            const startItem = (currentPage - 1) * pageSize + 1;
+            const endItem = Math.min(currentPage * pageSize, totalItems);
+            paginationInfo.textContent = `แสดง ${startItem}-${endItem} จาก ${totalItems} รายชื่อ`;
+
+            const buttons = [];
+            buttons.push(createPageButton("ก่อนหน้า", currentPage - 1, { disabled: currentPage === 1 }));
+
+            for (let page = 1; page <= totalPages; page += 1) {
+                if (
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                    buttons.push(createPageButton(String(page), page, { active: page === currentPage }));
+                    continue;
+                }
+
+                const lastButton = buttons[buttons.length - 1];
+                if (!lastButton || lastButton.textContent !== "...") {
+                    const ellipsis = document.createElement("button");
+                    ellipsis.type = "button";
+                    ellipsis.className = "page-btn";
+                    ellipsis.textContent = "...";
+                    ellipsis.disabled = true;
+                    buttons.push(ellipsis);
+                }
+            }
+
+            buttons.push(createPageButton("ถัดไป", currentPage + 1, { disabled: currentPage === totalPages }));
+            paginationControls.replaceChildren(...buttons);
+        }
+
+        function updateResults() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            const filteredStudents = students.filter((student) => {
+                const searchText = `${student.name} ${student.faculty} ${student.program} ${student.status}`.toLowerCase();
+                return searchText.includes(keyword);
+            });
+
+            resultCount.textContent = keyword
+                ? `พบรายชื่อที่ตรงกับคำค้นหา ${filteredStudents.length} คน`
+                : `แสดงรายชื่อทั้งหมด ${students.length} คน`;
+            emptyResult.style.display = filteredStudents.length === 0 ? "block" : "none";
+            renderStudents(filteredStudents, currentPage);
+            renderPagination(filteredStudents.length);
+        }
+
+        searchInput.addEventListener("input", () => {
+            currentPage = 1;
+            updateResults();
+        });
+        updateResults();
+    </script>
 </body>
 </html>
