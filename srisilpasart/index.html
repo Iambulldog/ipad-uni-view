@@ -806,7 +806,7 @@
                 <a href="#result-list">รายชื่อผู้สอบติด</a>
                 <a href="#reporting">กำหนดการรายงานตัว</a>
                 <a href="#contact">ติดต่อ</a>
-                <a class="btn-nav" href="admission.html">หน้าใบสมัครเดิม</a>
+                <!-- <a class="btn-nav" href="admission.html">หน้าใบสมัครเดิม</a> -->
             </nav>
         </div>
     </header>
@@ -827,7 +827,7 @@
 
             <div class="stats-band">
                 <div class="stat-cell">
-                    <strong>รอบ Portfolio</strong>
+                    <strong>รอบ ยื่นคะแนน</strong>
                     <span>ประกาศรายชื่อผู้ผ่านการคัดเลือกอย่างเป็นทางการ</span>
                 </div>
                 <div class="stat-cell">
@@ -1149,18 +1149,22 @@
             return article;
         }
 
+        let shouldFocusFirstStudent = false;
         function renderStudents(studentResults, page) {
             const startIndex = (page - 1) * pageSize;
             const pageStudents = studentResults.slice(startIndex, startIndex + pageSize);
             studentList.replaceChildren(...pageStudents.map((student, index) => createStudentCard(student, startIndex + index)));
-            // Focus the first student item after rendering
-            setTimeout(() => {
-                const firstItem = studentList.querySelector('.student-item');
-                if (firstItem) {
-                    firstItem.setAttribute('tabindex', '-1');
-                    firstItem.focus();
-                }
-            }, 0);
+            // Focus the first student item only if requested (pagination)
+            if (shouldFocusFirstStudent) {
+                setTimeout(() => {
+                    const firstItem = studentList.querySelector('.student-item');
+                    if (firstItem) {
+                        firstItem.setAttribute('tabindex', '-1');
+                        firstItem.focus();
+                    }
+                }, 0);
+                shouldFocusFirstStudent = false;
+            }
         }
 
         function createPageButton(label, page, options = {}) {
@@ -1173,6 +1177,7 @@
             if (!button.disabled) {
                 button.addEventListener("click", () => {
                     currentPage = page;
+                    shouldFocusFirstStudent = true;
                     updateResults();
                 });
             }
