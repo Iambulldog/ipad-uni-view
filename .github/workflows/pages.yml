@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -46,3 +48,20 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify:
+    needs: deploy
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🙃 GitHub Action เสร็จสิ้นแล้ว!
+            Repository: ${{ github.repository }}
+            Status: ${{ needs.deploy.result }}
+            Commit: ${{ github.sha }}
+            URL: ${{ needs.deploy.outputs.page_url }}
