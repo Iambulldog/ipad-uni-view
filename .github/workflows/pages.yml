@@ -54,6 +54,14 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get commit message
+        id: commit
+        run: |
+          echo "message<<EOF" >> $GITHUB_OUTPUT
+          echo "$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       - name: Send notification
         uses: appleboy/telegram-action@master
         with:
@@ -63,5 +71,5 @@ jobs:
             🙃 GitHub Action เสร็จสิ้นแล้ว!
             Repository: ${{ github.repository }}
             Status: ${{ needs.deploy.result }}
-            Commit: ${{ github.sha }}
+            Message: ${{ steps.commit.outputs.message }}
             URL: ${{ needs.deploy.outputs.page_url }}
