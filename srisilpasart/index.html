@@ -1136,6 +1136,14 @@
         </div>
         <div class="header-nav-area">
             <p class="header-tagline">ประกาศผลการคัดเลือก ปีการศึกษา 2569<br>ตรวจสอบรายชื่อได้ตลอด 24 ชั่วโมง</p>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-label="เปิดเมนูนำทาง" aria-expanded="false" aria-controls="site-nav">
+                <span class="nav-toggle-icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                เมนู
+            </button>
             <nav class="site-nav" aria-label="เมนูนำทาง">
                 <a href="#overview">หน้าแรก</a>
                 <a href="#result-list">รายชื่อผู้สอบติด</a>
@@ -1373,6 +1381,9 @@
         const detailMoreLink = document.getElementById('detail-more-link');
         const detailConfirmLink = document.getElementById('detail-confirm-link');
         const detailNotFound = document.getElementById('detail-not-found');
+        const navToggle = document.getElementById('nav-toggle');
+        const siteHeader = document.querySelector('.site-header');
+        const siteNav = document.querySelector('.site-nav');
         const urlParams = new URLSearchParams(window.location.search);
         const applicantName = urlParams.get('name');
 
@@ -1412,6 +1423,32 @@
         if (applicantName) {
             renderApplicantDetail(applicantName);
         }
+
+        function closeMobileNav() {
+            siteHeader.classList.remove('is-nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'เปิดเมนูนำทาง');
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = siteHeader.classList.toggle('is-nav-open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+            navToggle.setAttribute('aria-label', isOpen ? 'ปิดเมนูนำทาง' : 'เปิดเมนูนำทาง');
+        });
+
+        siteNav.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (window.matchMedia('(max-width: 980px)').matches) {
+                    closeMobileNav();
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (!window.matchMedia('(max-width: 980px)').matches) {
+                closeMobileNav();
+            }
+        });
 
         const baseStudents = [
             {
