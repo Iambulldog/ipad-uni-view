@@ -100,6 +100,7 @@
             background: rgba(250, 248, 243, 0.97);
             backdrop-filter: blur(10px);
             gap: 24px;
+            position: relative;
         }
 
         .header-tagline {
@@ -114,6 +115,57 @@
             display: flex;
             align-items: center;
             gap: 4px;
+        }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 14px;
+            border: 1px solid rgba(46, 92, 66, 0.18);
+            border-radius: 10px;
+            background: #fff;
+            color: var(--sage-dark);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .nav-toggle-icon {
+            width: 18px;
+            height: 12px;
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .nav-toggle-icon span {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            border-radius: 999px;
+            background: currentColor;
+            transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
+        }
+
+        .nav-toggle-icon span:nth-child(1) { top: 0; }
+        .nav-toggle-icon span:nth-child(2) { top: 5px; }
+        .nav-toggle-icon span:nth-child(3) { top: 10px; }
+
+        .site-header.is-nav-open .nav-toggle-icon span:nth-child(1) {
+            top: 5px;
+            transform: rotate(45deg);
+        }
+
+        .site-header.is-nav-open .nav-toggle-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .site-header.is-nav-open .nav-toggle-icon span:nth-child(3) {
+            top: 5px;
+            transform: rotate(-45deg);
         }
 
         .site-nav a {
@@ -518,6 +570,216 @@
             box-shadow: 0 0 0 4px rgba(46, 92, 66, 0.09);
         }
 
+        .student-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .student-name a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        body.detail-mode {
+            background: var(--ivory);
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.detail-mode .hero,
+        body.detail-mode .steps-section,
+        body.detail-mode .main-section {
+            display: none;
+        }
+
+        .detail-page {
+            display: none;
+            min-height: 100vh;
+            padding: 26px 0 40px;
+            background:
+                radial-gradient(circle at top left, rgba(46, 92, 66, 0.07), transparent 30%),
+                linear-gradient(180deg, #faf8f3 0%, #f4f0e8 100%);
+        }
+
+        body.detail-mode .detail-page {
+            display: block;
+            order: 1;
+        }
+
+        body.detail-mode .site-header {
+            order: 0;
+        }
+
+        body.detail-mode .site-footer {
+            order: 2;
+        }
+
+        .detail-shell {
+            width: min(720px, calc(100% - 28px));
+            margin: 0 auto;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .detail-heading {
+            width: 100%;
+            margin: 0 0 18px;
+            padding-bottom: 18px;
+            font-size: clamp(1.9rem, 3.7vw, 2.6rem);
+            line-height: 1.1;
+            font-weight: 700;
+            color: var(--sage-dark);
+            border-bottom: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .detail-card {
+            width: 100%;
+            margin-top: 22px;
+            padding: 26px;
+            border-radius: var(--r);
+            border: 1px solid var(--line);
+            background: var(--card);
+            box-shadow: var(--glow);
+            display: grid;
+            justify-items: center;
+            gap: 22px;
+        }
+
+        .detail-photo-wrap {
+            width: min(248px, 60vw);
+            padding: 8px;
+            border-radius: 16px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            box-shadow: 0 10px 24px rgba(28, 61, 43, 0.08);
+        }
+
+        .detail-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .detail-grid {
+            width: min(100%, 560px);
+            display: grid;
+            grid-template-columns: 145px minmax(0, 1fr);
+            gap: 22px 20px;
+            align-items: start;
+            margin-inline: auto;
+        }
+
+        .detail-label {
+            font-size: 1.78rem;
+            line-height: 1.25;
+            font-weight: 700;
+            color: var(--sage-dark);
+        }
+
+        .detail-value {
+            font-size: 1.72rem;
+            line-height: 1.35;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .detail-actions {
+            width: min(100%, 560px);
+            margin-top: 12px;
+            display: grid;
+            gap: 16px;
+            margin-inline: auto;
+        }
+
+        .detail-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 64px;
+            padding: 18px 22px;
+            border-radius: 16px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 0;
+            box-shadow: 0 12px 24px rgba(28, 61, 43, 0.12);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+        }
+
+        .detail-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(51, 69, 95, 0.12);
+        }
+
+        .detail-btn--ghost {
+            background: transparent;
+            color: var(--sage);
+            border: 1.5px solid var(--sage);
+        }
+
+        .detail-btn--primary {
+            background: var(--sage);
+            color: #fff;
+        }
+
+        .detail-not-found {
+            width: 100%;
+            display: none;
+            margin-top: 22px;
+            padding: 18px 20px;
+            border-radius: 16px;
+            background: rgba(201, 123, 75, 0.1);
+            color: var(--dim);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .detail-shell {
+                width: min(620px, calc(100% - 20px));
+            }
+
+            .detail-topbar {
+                padding: 12px 14px;
+                border-radius: 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .detail-heading {
+                text-align: center;
+            }
+
+            .detail-grid {
+                grid-template-columns: 108px minmax(0, 1fr);
+                gap: 18px 14px;
+            }
+
+            .detail-label,
+            .detail-value,
+            .detail-btn {
+                font-size: 1.18rem;
+            }
+
+            .detail-btn {
+                min-height: 56px;
+                border-radius: 14px;
+            }
+
+            .detail-heading {
+                font-size: 1.65rem;
+            }
+
+            .detail-card {
+                padding: 18px;
+            }
+        }
+
         .result-count {
             margin: 0 0 10px;
             font-size: 0.86rem;
@@ -737,10 +999,34 @@
                 padding: 10px 20px 12px;
                 flex-wrap: wrap;
                 gap: 10px;
+                align-items: stretch;
             }
 
             .header-tagline { display: none; }
-            .site-nav { flex-wrap: wrap; }
+            .nav-toggle { display: inline-flex; margin-left: auto; }
+
+            .site-nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                padding: 10px;
+                border-radius: 14px;
+                background: rgba(46, 92, 66, 0.04);
+                border: 1px solid rgba(46, 92, 66, 0.08);
+            }
+
+            .site-header.is-nav-open .site-nav {
+                display: flex;
+            }
+
+            .site-nav a,
+            .btn-nav {
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+            }
 
             .main-grid,
             .footer-inner {
@@ -773,6 +1059,22 @@
                 grid-template-columns: 1fr;
             }
 
+            .detail-grid {
+                grid-template-columns: 108px minmax(0, 1fr);
+                gap: 18px 14px;
+            }
+
+            .detail-label,
+            .detail-value,
+            .detail-btn {
+                font-size: 1.18rem;
+            }
+
+            .detail-btn {
+                min-height: 56px;
+                border-radius: 14px;
+            }
+
             .result-label-row {
                 display: grid;
             }
@@ -791,14 +1093,47 @@
 </head>
 <body>
 
-    <header class="site-header">
-        <a class="header-brand" href="#overview">
-            <img src="logo.jpg" alt="ตราสัญลักษณ์มหาวิทยาลัยศรีศิลปศาสตร์">
-            <div class="brand-info">
-                <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
-                <span>Srisilpasart University</span>
+    <section class="detail-page" id="applicant-detail" hidden>
+        <div class="detail-shell">
+            <h1 class="detail-heading" id="detail-heading">ข้อมูลการลงทะเบียน</h1>
+
+            <div class="detail-card">
+                <div class="detail-photo-wrap">
+                    <img class="detail-photo" id="detail-photo" src="" alt="รูปผู้สมัคร">
+                </div>
+
+                <div class="detail-grid" id="detail-grid"></div>
+
+                <div class="detail-actions">
+                    <a class="detail-btn detail-btn--ghost" id="detail-more-link" href="#">ดูรายละเอียด</a>
+                    <a class="detail-btn detail-btn--primary" id="detail-confirm-link" href="admission.html">ยืนยันการสมัคร</a>
+                </div>
             </div>
-        </a>
+
+            <div class="detail-not-found" id="detail-not-found">
+                ไม่พบข้อมูลผู้สมัครจากชื่อที่ระบุในพารามิเตอร์ URL
+            </div>
+        </div>
+    </section>
+
+    <header class="site-header">
+        <div class="header-brand">
+            <a class="brand-link" href="#overview">
+                <img src="logo.jpg" alt="ตราสัญลักษณ์มหาวิทยาลัยศรีศิลปศาสตร์">
+                <div class="brand-info">
+                    <strong>มหาวิทยาลัยศรีศิลปศาสตร์</strong>
+                    <span>Srisilpasart University</span>
+                </div>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="เปิดเมนู" aria-expanded="false">
+                <span class="nav-toggle-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="nav-toggle-text">เมนู</span>
+            </button>
+        </div>
         <div class="header-nav-area">
             <p class="header-tagline">ประกาศผลการคัดเลือก ปีการศึกษา 2569<br>ตรวจสอบรายชื่อได้ตลอด 24 ชั่วโมง</p>
             <nav class="site-nav" aria-label="เมนูนำทาง">
@@ -999,6 +1334,85 @@
     </footer>
 
     <script>
+        const applicantDetails = {
+            page1: {
+                title: 'รายละเอียดผู้สมัคร',
+                items: [
+                    ['ชื่อ', 'ภัคจิรา มนต์ไชยตระกูล'],
+                    ['โรงเรียน', 'โรงเรียนจันทรวัฒนา'],
+                    ['ปีการศึกษา', '2569'],
+
+                ]
+            },
+            page2: {
+                title: 'รายละเอียดผู้สมัคร',
+                items: [
+                    ['ชื่อ', 'สินิทธา คงปุริม'],
+                    ['โรงเรียน', 'โรงเรียนจันทรวัฒนา'],
+                    ['ปีการศึกษา', '2569'],
+
+                ]
+            }
+        };
+
+        const applicantProfiles = {
+            'ภัคจิรา มนต์ไชยตระกูล': {
+                detail: applicantDetails.page1,
+                photo: 'img2.jpg'
+            },
+            'สินิทธา คงปุริม': {
+                detail: applicantDetails.page2,
+                photo: 'img1.jpg'
+            }
+        };
+
+        const detailSection = document.getElementById('applicant-detail');
+        const detailHeading = document.getElementById('detail-heading');
+        const detailPhoto = document.getElementById('detail-photo');
+        const detailGrid = document.getElementById('detail-grid');
+        const detailMoreLink = document.getElementById('detail-more-link');
+        const detailConfirmLink = document.getElementById('detail-confirm-link');
+        const detailNotFound = document.getElementById('detail-not-found');
+        const urlParams = new URLSearchParams(window.location.search);
+        const applicantName = urlParams.get('name');
+
+        function renderApplicantDetail(name) {
+            const profile = applicantProfiles[name];
+            if (!profile) {
+                detailNotFound.style.display = 'block';
+                detailSection.hidden = false;
+                document.body.classList.add('detail-mode');
+                document.title = 'รายละเอียดข้อมูลผู้สมัคร | มหาวิทยาลัยศรีศิลปศาสตร์';
+                return;
+            }
+
+            detailHeading.textContent = profile.detail.title;
+            detailPhoto.src = profile.photo;
+            detailPhoto.alt = `รูปผู้สมัคร ${name}`;
+            detailGrid.replaceChildren(...profile.detail.items.map(([label, value]) => {
+                const labelNode = document.createElement('div');
+                labelNode.className = 'detail-label';
+                labelNode.textContent = label;
+
+                const valueNode = document.createElement('div');
+                valueNode.className = 'detail-value';
+                valueNode.textContent = value;
+
+                return [labelNode, valueNode];
+            }).flat());
+
+            detailMoreLink.href = `#detail-grid`;
+            detailConfirmLink.href = `admission.html?name=${encodeURIComponent(name)}`;
+            detailNotFound.style.display = 'none';
+            detailSection.hidden = false;
+            document.body.classList.add('detail-mode');
+            document.title = `${name} | รายละเอียดข้อมูลการลงทะเบียน`;
+        }
+
+        if (applicantName) {
+            renderApplicantDetail(applicantName);
+        }
+
         const baseStudents = [
             {
                 name: "สุนันธา เจริญสกุล",
@@ -1134,7 +1548,10 @@
             const detail = document.createElement("div");
             detail.className = "student-name";
 
-            const name = document.createElement("strong");
+            const name = document.createElement(student.name in applicantProfiles ? "a" : "strong");
+            if (student.name in applicantProfiles) {
+                name.href = `?name=${encodeURIComponent(student.name)}`;
+            }
             name.textContent = student.name;
 
             const program = document.createElement("span");
@@ -1250,6 +1667,19 @@
             updateResults();
         });
         updateResults();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.site-header');
+            const navToggle = document.querySelector('.nav-toggle');
+
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    header.classList.toggle('is-nav-open');
+                    const isNavOpen = header.classList.contains('is-nav-open');
+                    navToggle.setAttribute('aria-expanded', isNavOpen);
+                });
+            }
+        });
     </script>
 </body>
 </html>
